@@ -4,9 +4,11 @@ export const apiHeader = {'Authorization': 'Bearer ' + atob(apiToken)}
 
 export default {
     userProf: apiPath + 'user_profile',    
+    userInfo: apiPath + 'userInformation',    
     auth: apiPath + 'auth/user_login',    
     register: apiPath + 'auth/user_register_by_email',    
     me: apiPath + 'auth/me',    
+    deleteMe: apiPath + 'users/delete/me',
     posts: apiPath + 'posts',    
     news: apiPath + 'news',    
     newsCategories: apiPath + 'category_news',    
@@ -31,6 +33,7 @@ export default {
     supports: apiPath + 'supports',    
     mySupports: apiPath + 'mySupports',    
     tags: apiPath + 'tags',    
-    transactions: apiPath + 'transactions',    
-    transactions: apiPath + 'wallets',    
+    transactions: apiPath + 'transactions',
+    withdraw: apiPath + 'withdraw',
+    uploadFile: apiPath + 'upload-file',
 }

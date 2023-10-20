@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Home from './views/Home';
 import Auth from './views/Auth/Auth';
 import Registration from './views/Auth/Registration';
@@ -25,49 +25,64 @@ import Chat from './views/Chat';
 import PNF from './views/PNF';
 import MainStatistics from './views/Statistics';
 import Terms from './views/Terms';
+import CreatePost from './views/Posts/CreatePost';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { useState } from 'react';
+import Loader from './components/Loader';
+import { useEffect, useState } from 'react';
 import Feed from './views/Profile/Feed';
+import Post from './views/Posts/Post';
+import User from './views/User';
 
 function App() {
+
+  function Protected(element) {
+    const navigate = useNavigate()
+    useEffect(() => {
+      if (!localStorage.getItem(btoa('token'))) return navigate('/auth')
+    }, [])
+
+    if (localStorage.getItem(btoa('token'))) return element.element
+    else return (<></>)
+  }
+
   return (
     <>
       <Router>
-          <Header/>
+        <Header />
         <Routes>
-          <Route index element={<Home/>}></Route>
-          <Route path="/auth" element={<Auth/>}></Route>
-          {localStorage.getItem(btoa('token')) ? (
-            <>
-              <Route path="/feed" element={<Feed/>}></Route>
-              <Route path="/e-confirm" element={<EmailConfirmation/>}></Route>
-              <Route path="/pass-recover" element={<PasswordRecovery/>}></Route>
-              <Route path="/freelance-burse" element={<FreelanceBurse/>}></Route>
-              <Route path="/orders-burse" element={<OrdersBurse/>}></Route>
-              <Route path="/freelancer" element={<Freelancer/>}></Route>
-              <Route path="/order" element={<Order/>}></Route>
-              <Route path="/products" element={<Products/>}></Route>
-              <Route path="/product" element={<Product/>}></Route>
-              <Route path="/awards" element={<Awards/>}></Route>
-              <Route path="/followers" element={<Followers/>}></Route>
-              <Route path="/partners" element={<Partners/>}></Route>
-              <Route path="/payment-type" element={<PaymentType/>}></Route>
-              <Route path="/profile" element={<Settings/>}></Route>
-              <Route path="/statistics" element={<Statistics/>}></Route>
-              <Route path="/subscriptions" element={<Subscriptions/>}></Route>
-              <Route path="/team" element={<Team/>}></Route>
-              <Route path="/tests" element={<Tests/>}></Route>
-              <Route path="/wallets" element={<Wallets/>}></Route>
-              <Route path="/chat" element={<Chat/>}></Route>
-              <Route path="/main-statistics" element={<MainStatistics/>}></Route>
-            </>
-          ): (<></>)}
-          <Route path="/registration" element={<Registration/>}></Route>
-          <Route path="/terms" element={<Terms/>}></Route>
-          <Route path="*" element={<PNF/>}></Route>
+          {localStorage.getItem(btoa('token')) ? (<Route index element={<Home />}></Route>) : (<Route index element={<Auth />}></Route>)}
+          <Route path="/post" element={<Post />}></Route>
+          <Route path="/user" element={<Protected element={<User />}></Protected>}></Route>
+          <Route path="/auth" element={<Auth />}></Route>
+          <Route path="/feed" element={<Protected element={<Feed />}></Protected>}></Route>
+          <Route path="/e-confirm" element={<EmailConfirmation />}></Route>
+          <Route path="/pass-recover" element={<PasswordRecovery />}></Route>
+          <Route path="/freelance-burse" element={<Protected element={<FreelanceBurse />}></Protected>}></Route>
+          <Route path="/orders-burse" element={<Protected element={<OrdersBurse />}></Protected>}></Route>
+          <Route path="/freelancer" element={<Protected element={<Freelancer />}></Protected>}></Route>
+          <Route path="/create-post" element={<Protected element={<CreatePost />}></Protected>}></Route>
+          <Route path="/order" element={<Protected element={<Order />}></Protected>}></Route>
+          <Route path="/products" element={<Protected element={<Products />}></Protected>}></Route>
+          <Route path="/product" element={<Protected element={<Product />}></Protected>}></Route>
+          <Route path="/awards" element={<Protected element={<Awards />}></Protected>}></Route>
+          <Route path="/followers" element={<Protected element={<Followers />}></Protected>}></Route>
+          <Route path="/partners" element={<Protected element={<Partners />}></Protected>}></Route>
+          <Route path="/payment-type" element={<Protected element={<PaymentType />}></Protected>}></Route>
+          <Route path="/profile" element={<Protected element={<Settings />}></Protected>}></Route>
+          <Route path="/statistics" element={<Protected element={<Statistics />}></Protected>}></Route>
+          <Route path="/subscriptions" element={<Protected element={<Subscriptions />}></Protected>}></Route>
+          <Route path="/team" element={<Protected element={<Team />}></Protected>}></Route>
+          <Route path="/tests" element={<Protected element={<Tests />}></Protected>}></Route>
+          <Route path="/wallets" element={<Protected element={<Wallets />}></Protected>}></Route>
+          <Route path="/chat" element={<Protected element={<Chat />}></Protected>}></Route>
+          <Route path="/main-statistics" element={<Protected element={<MainStatistics />}></Protected>}></Route>
+          <Route path="/registration" element={<Registration />}></Route>
+          <Route path="/terms" element={<Terms />}></Route>
+          <Route path="*" element={<PNF />}></Route>
         </Routes>
-        <Footer/>
+        <Footer />
+        <Loader/>
       </Router>
     </>
   );

@@ -1,27 +1,37 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getNews } from "../apis/news";
 import { getPosts } from "../apis/posts";
+import { setPost } from "../store/posts";
 import { getMe } from "../apis/users";
 import { Image, Shimmer } from 'react-shimmer';
+import { Link } from "react-router-dom";
+import './css/home.css';
+import { useDispatch, useSelector } from "react-redux";
+import { setAvatar, setName } from "../store/sidebar";
+import Post from "../components/Post";
 
 function Home() {
     const navigate = useNavigate()
-    const [news, setNews] = useState([])
-    const [posts, setPosts] = useState([])
+    const [selectedPost, setSelectedPost] = useState(0)
+    const posts = useSelector((state) => state.posts.posts)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (!localStorage.getItem(btoa('token'))) return navigate('/auth')
-        getNews().then(res => setNews(res.data.data))
-        getPosts().then(res => setPosts(res.data.data))
+        getPosts().then(res => dispatch(setPost(res.data.data)))
         if (!localStorage.getItem(btoa('login')) && localStorage.getItem(btoa('login')) != btoa('undefined')) {
             getMe().then(res => {
+                localStorage.setItem(btoa('id'), res.data.data.id)
                 localStorage.setItem(btoa('login'), btoa(res.data.data.login))
                 localStorage.setItem(btoa('phone'), btoa(res.data.data.phone))
+                localStorage.setItem(btoa('name'), btoa(res.data.data.user_information?.first_name?.value ?res.data.data.user_information?.first_name?.value : 'Unnamed'))
+                dispatch(setName(res.data.data.user_information?.first_name?.value ?res.data.data.user_information?.first_name?.value : 'Unnamed'))
                 localStorage.setItem(btoa('nick'), btoa(res.data.data.nick))
                 localStorage.setItem(btoa('email'), btoa(res.data.data.email))
-                localStorage.setItem(btoa('avatar'), btoa(res.data.data.avatar))
+                localStorage.setItem(btoa('avatar'), btoa(res.data.data.user_information?.profile_photo?.value ? res.data.data.user_information?.profile_photo?.value : res.data.data.avatar))
+                dispatch(setAvatar(res.data.data.user_information?.profile_photo?.value ? res.data.data.user_information?.profile_photo?.value : res.data.data.avatar))
                 localStorage.setItem(btoa('locale'), btoa(res.data.data.locale))
+                localStorage.setItem(btoa('wallet'), btoa(res.data.data.wallet))
             })
         }
     }, [])
@@ -47,12 +57,12 @@ function Home() {
                                                 </svg>
                                             </button>
                                         </fieldset>
-                                        <button class="feed-search__btn m-btn m-btn-purple">
+                                        <Link to="/create-post" class="feed-search__btn m-btn m-btn-purple">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M12 9V15M15 12H9M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z" stroke="#F6F6F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
                                             <span>Создать новый пост</span>
-                                        </button>
+                                        </Link>
                                     </div>
                                     <div class="stories__wrap">
                                         <button class="news__btn m-btn m-btn-white round-btn">
@@ -127,94 +137,8 @@ function Home() {
                                             </button>
                                         </div>
                                     </div>
-                                    {posts[0]
-                                        ? (
-                                            <div class="feed-item">
-                                                <div class="feed-item__top">
-                                                    <div class="feed-item__user">
-                                                        <div class="avatar">
-                                                            <img src={posts[0]?.user_info.avatar} alt="" />
-                                                        </div>
-                                                        <div class="feed-item__user-info">
-                                                            <div class="text20 text14-mob font2">
-                                                                {posts[0]?.user_info.login}
-                                                            </div>
-                                                            <div class="text18 text10-mob">
-                                                                @{posts[0]?.user_info.nick}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-item__action">
-                                                        <button class="feed-item__btn anim-btn">
-                                                            <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M32 7.90909C32 3.54152 28.2684 0 23.6658 0C20.2258 0 17.2711 1.97903 16 4.80345C14.7289 1.97903 11.7742 0 8.33244 0C3.73333 0 0 3.54152 0 7.90909C0 20.5988 16 29 16 29C16 29 32 20.5988 32 7.90909Z" fill="#795AA0" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{posts[0]?.likes_count}</span>
-                                                        </button>
-                                                        <button class="feed-item__btn anim-btn _comments">
-                                                            <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M21 39.2609C32.0444 39.2609 41 30.6951 41 20.1304C41 9.56579 32.0444 1 21 1C9.95556 1 1 9.56579 1 20.1304C1 25.0093 2.90889 29.4591 6.05111 32.8377C7.01111 33.8742 7.69556 35.2493 7.35333 36.6429C6.9786 38.1668 6.27728 39.582 5.30222 40.782C6.08254 40.9283 6.87386 41.0012 7.66667 41C10.5156 41 13.1556 40.0678 15.3222 38.4794C17.1222 38.9896 19.0289 39.2609 21 39.2609Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{posts[0]?.comments_count}</span>
-                                                        </button>
-                                                        <button class="feed-item__btn anim-btn _saves">
-                                                            <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M25.4403 1.68294C27.4936 1.95314 29 3.95641 29 6.29532V39L15 31.084L1 39V6.29532C1 3.95641 2.50453 1.95314 4.55973 1.68294C11.4966 0.772355 18.5034 0.772355 25.4403 1.68294Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{posts[0]?.favorites_count}</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
 
-
-                                                <div class="gallery">
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery2.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery3.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery4.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery5.png" alt="" />
-                                                        </div>
-
-                                                        <div class="gallery-item__count">
-                                                            <span class="text24 bold-text">+45</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="feed-item__text">
-                                                    <div class="text18 text16-mob">
-                                                        <span dangerouslySetInnerHTML={{ __html: posts[0]?.content.slice(0, 60) }}></span>...
-                                                        {/* {posts[0]?.content.slice(0, 60)}... */}
-                                                        <button>Ещё</button>
-                                                    </div>
-                                                </div>
-                                                <div class="feed-item__tags">
-                                                    {posts[0]?.tags.map(item => (
-                                                        <a href="" class="feed-item__tag"><span>#{item.slug}</span></a>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )
-                                        : (<><Shimmer width={'100%'} height={400} /></>)
-                                    }
+                                    {posts?.length > 0 ? (<Post data={posts[0]}></Post>) : (<><Shimmer width={'100%'} height={400} /></>)}
 
                                     <div class="posts">
                                         <div class="text24 font2">
@@ -335,62 +259,7 @@ function Home() {
                                         </div>
                                     </div>
 
-                                    {posts[1]
-                                        ? (
-                                            <div class="feed-item">
-                                                <div class="feed-item__top">
-                                                    <div class="feed-item__user">
-                                                        <div class="avatar">
-                                                            <img src={posts[1]?.user_info.avatar} alt="" />
-                                                        </div>
-                                                        <div class="feed-item__user-info">
-                                                            <div class="text20 text14-mob font2">
-                                                                {posts[1]?.user_info.login}
-                                                            </div>
-                                                            <div class="text18 text10-mob">
-                                                                @{posts[1]?.user_info.nick}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-item__action">
-                                                        <button class="feed-item__btn anim-btn">
-                                                            <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M32 7.90909C32 3.54152 28.2684 0 23.6658 0C20.2258 0 17.2711 1.97903 16 4.80345C14.7289 1.97903 11.7742 0 8.33244 0C3.73333 0 0 3.54152 0 7.90909C0 20.5988 16 29 16 29C16 29 32 20.5988 32 7.90909Z" fill="#795AA0" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{posts[1]?.likes_count}</span>
-                                                        </button>
-                                                        <button class="feed-item__btn anim-btn _comments">
-                                                            <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M21 39.2609C32.0444 39.2609 41 30.6951 41 20.1304C41 9.56579 32.0444 1 21 1C9.95556 1 1 9.56579 1 20.1304C1 25.0093 2.90889 29.4591 6.05111 32.8377C7.01111 33.8742 7.69556 35.2493 7.35333 36.6429C6.9786 38.1668 6.27728 39.582 5.30222 40.782C6.08254 40.9283 6.87386 41.0012 7.66667 41C10.5156 41 13.1556 40.0678 15.3222 38.4794C17.1222 38.9896 19.0289 39.2609 21 39.2609Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{posts[1]?.comments_count}</span>
-                                                        </button>
-                                                        <button class="feed-item__btn anim-btn _saves">
-                                                            <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M25.4403 1.68294C27.4936 1.95314 29 3.95641 29 6.29532V39L15 31.084L1 39V6.29532C1 3.95641 2.50453 1.95314 4.55973 1.68294C11.4966 0.772355 18.5034 0.772355 25.4403 1.68294Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{posts[1]?.favorites_count}</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <img src="img/gallery6.webp" alt="" class="feed-item__img" />
-                                                <div class="feed-item__text">
-                                                    <div class="text18 text16-mob">
-                                                        <span dangerouslySetInnerHTML={{ __html: posts[1]?.content.slice(0, 60) }}></span>...
-                                                        {/* {posts[1]?.content.slice(0, 60)}... */}
-                                                        <button>Ещё</button>
-                                                    </div>
-                                                </div>
-                                                <div class="feed-item__tags">
-                                                    {posts[1]?.tags.map(item => (
-                                                        <a href="" class="feed-item__tag"><span>#{item.slug}</span></a>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )
-                                        : (<><Shimmer width={'100%'} height={400} /></>)
-                                    }
+                                    {posts?.length > 1 ? (<Post data={posts[1]}></Post>) : (<><Shimmer width={'100%'} height={400} /></>)}
 
                                     <div class="authors">
                                         <div class="text24 font2">
@@ -679,90 +548,8 @@ function Home() {
                                         </div>
                                     </div>
 
-                                    {posts[2]
-                                        ? posts.slice(2, posts.length).map(item => (
-
-                                            <div class="feed-item">
-                                                <div class="feed-item__top">
-                                                    <div class="feed-item__user">
-                                                        <div class="avatar">
-                                                            <img src={item?.user_info.avatar} alt="" />
-                                                        </div>
-                                                        <div class="feed-item__user-info">
-                                                            <div class="text20 text14-mob font2">
-                                                                {item?.user_info.login}
-                                                            </div>
-                                                            <div class="text18 text10-mob">
-                                                                @{item?.user_info.nick}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-item__action">
-                                                        <button class="feed-item__btn anim-btn">
-                                                            <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M32 7.90909C32 3.54152 28.2684 0 23.6658 0C20.2258 0 17.2711 1.97903 16 4.80345C14.7289 1.97903 11.7742 0 8.33244 0C3.73333 0 0 3.54152 0 7.90909C0 20.5988 16 29 16 29C16 29 32 20.5988 32 7.90909Z" fill="#795AA0" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{item?.likes_count}</span>
-                                                        </button>
-                                                        <button class="feed-item__btn anim-btn _comments">
-                                                            <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M21 39.2609C32.0444 39.2609 41 30.6951 41 20.1304C41 9.56579 32.0444 1 21 1C9.95556 1 1 9.56579 1 20.1304C1 25.0093 2.90889 29.4591 6.05111 32.8377C7.01111 33.8742 7.69556 35.2493 7.35333 36.6429C6.9786 38.1668 6.27728 39.582 5.30222 40.782C6.08254 40.9283 6.87386 41.0012 7.66667 41C10.5156 41 13.1556 40.0678 15.3222 38.4794C17.1222 38.9896 19.0289 39.2609 21 39.2609Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{item?.comments_count}</span>
-                                                        </button>
-                                                        <button class="feed-item__btn anim-btn _saves">
-                                                            <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M25.4403 1.68294C27.4936 1.95314 29 3.95641 29 6.29532V39L15 31.084L1 39V6.29532C1 3.95641 2.50453 1.95314 4.55973 1.68294C11.4966 0.772355 18.5034 0.772355 25.4403 1.68294Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{item?.favorites_count}</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <div class="gallery">
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery2.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery3.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery4.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery5.png" alt="" />
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="feed-item__text">
-                                                    <div class="text18 text16-mob">
-                                                        <span dangerouslySetInnerHTML={{ __html: item?.content.slice(0, 60) }}></span>
-                                                        {/* {item?.content.slice(0, 60)} */}
-                                                        ...<button>Ещё</button>
-                                                    </div>
-                                                </div>
-                                                <div class="feed-item__tags">
-                                                    {item?.tags.map(item => (
-                                                        <a href="" class="feed-item__tag"><span>#{item.slug}</span></a>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        ))
-
+                                    {posts?.length > 2
+                                        ? posts.slice(2, posts.length).map(item => (<Post data={item}></Post>))
                                         : (<><Shimmer width={'100%'} height={400} /></>)
                                     }
                                 </div>

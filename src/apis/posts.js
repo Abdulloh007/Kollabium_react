@@ -8,7 +8,7 @@ export function getPosts() {
 }
 
 export function getAPost(id) {
-    return axios.get(apis.posts + id, {
+    return axios.get(apis.posts + '/' + id + '?with_user_information=1', {
         headers: apiHeader
     })
 }
@@ -19,14 +19,14 @@ export function createPost(body) {
     })
 }
 
-export function updatePost(body) {
-    return axios.put(apis.posts, body, {
+export function updatePost(id, body) {
+    return axios.put(apis.posts + '/' + id, body, {
         headers: apiHeader
     })
 }
 
 export function deleteAPost(id) {
-    return axios.delete(apis.posts + id, {
+    return axios.delete(apis.posts + '/' + id, {
         headers: apiHeader
     })
 }

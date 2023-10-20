@@ -1,0 +1,17 @@
+.profile__actions {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile__save.delete {
+    background-color: #f1e4f8;
+    border: 1px solid #fff;
+    margin-left: 15px;
+}
+
+@media screen and (max-width: 576px) {
+    .profile__save.delete {
+        right: 1.5em;
+        left: auto;
+    }
+}

@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     opened: false,
+    userName: atob(localStorage.getItem(btoa('name'))),
+    avatar: atob(localStorage.getItem(btoa('avatar')))
 }
 
 export const sidebarSlice = createSlice({
@@ -22,10 +24,16 @@ export const sidebarSlice = createSlice({
                 document.body.classList.remove('_open')
             }
         },
+        setName: (state, action) => {
+            state.userName = action.payload
+        },
+        setAvatar: (state, action) => {
+            state.avatar = action.payload
+        }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { toggle } = sidebarSlice.actions
+export const { toggle, setName, setAvatar } = sidebarSlice.actions
 
 export default sidebarSlice.reducer

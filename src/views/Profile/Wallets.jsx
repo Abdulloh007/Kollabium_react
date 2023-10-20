@@ -1,14 +1,42 @@
 import { useEffect, useState } from "react";
-import { getMyTrs } from "../../apis/users";
+import { getMyBalance, getMyTrs } from "../../apis/users";
+import { withdrawWallet } from "../../apis/wallet";
 
 function Wallets() {
 
+    const [wallet, setWallet] = useState({})
     const [walletTrs, setWalletTrs] = useState([])
+    const [validator, setValidator] = useState({})
+    const [address, setAddress] = useState('')
+    const [amount, setAmount] = useState('')
+    const [isOpen, setOpenSate] = useState(false)
+    const [modalTarget, setModalTarget] = useState('')
 
     useEffect(() => {
+        getMyBalance(atob(localStorage.getItem(btoa('wallet')))).then(res => setWallet(res.data.result))
         getMyTrs().then(res => setWalletTrs(res.data.data)).catch(err => alert(err))
     }, [])
 
+    function withdarw() {
+        withdrawWallet(address, amount)
+            .then(res => {
+                alert(res.data.message)
+                getMyBalance(atob(localStorage.getItem(btoa('wallet')))).then(res => setWallet(res.data.result))
+                getMyTrs().then(res => setWalletTrs(res.data.data)).catch(err => alert(err))
+                closeModal()
+            })
+            .catch(error => setValidator(error.response.data.errors))
+
+    }
+
+    function openModal(target) {
+        setModalTarget(target)
+        setOpenSate(true)
+    }
+
+    function closeModal() {
+        setOpenSate(false)
+    }
     return (
         <>
             <main class="content">
@@ -23,28 +51,47 @@ function Wallets() {
                                             Баланс
                                         </div>
                                         <div class="wallet-balance__badges">
-                                            <div class="badge">
+                                            <div onClick={() => openModal('pull')} class="badge">
                                                 <span class="text16">Ввод</span>
                                             </div>
-                                            <div class="badge">
+                                            <div onClick={() => openModal('withdraw')} class="badge">
                                                 <span class="text16">Вывод</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="wallet">
-                                        <div class="wallet__top">
-                                            <img src="img/bitcoin.svg" alt=""/>
-                                                <span>Token Name</span>
-                                        </div>
-                                        <div class="wallet__sum">
-                                            <span>12,500 USD</span>
-                                        </div>
-                                        <div class="effect-1"></div>
-                                        <div class="effect-2"></div>
-                                        <div class="wallet__desc">
-                                            ВАШ КОШЕЛЕК
-                                        </div>
-                                    </div>
+                                    {wallet.kollabium
+                                        ? (
+                                            <div class="wallet">
+                                                <div class="wallet__top">
+                                                    <img src={wallet?.kollabium?.avatar} alt="" />
+                                                    <span>Kollabium</span>
+                                                </div>
+                                                <div class="wallet__sum">
+                                                    <span>{wallet?.kollabium?.amount ? (wallet?.kollabium?.amount / Math.pow(10, 18)).toFixed(3) : 0.00} KollabiuM</span>
+                                                </div>
+                                                <div class="effect-1"></div>
+                                                <div class="effect-2"></div>
+                                                <div class="wallet__desc">
+                                                    ВАШ КОШЕЛЕК
+                                                </div>
+                                            </div>
+                                        )
+                                        : (
+                                            <div class="wallet">
+                                                <div class="wallet__top">
+                                                    <img src={wallet?.del?.avatar} alt="" />
+                                                    <span>Del</span>
+                                                </div>
+                                                <div class="wallet__sum">
+                                                    <span>{wallet?.del?.amount ? (wallet?.del?.amount / Math.pow(10, 18)).toFixed(3) : 0.00} Del</span>
+                                                </div>
+                                                <div class="effect-1"></div>
+                                                <div class="effect-2"></div>
+                                                <div class="wallet__desc">
+                                                    ВАШ КОШЕЛЕК
+                                                </div>
+                                            </div>
+                                        )}
                                 </div>
                                 <div class="wallet-action">
                                     <button class="wallet-action__btn _type1">
@@ -77,8 +124,8 @@ function Wallets() {
                                     </div>
                                     <div class="wallet">
                                         <div class="wallet__top">
-                                            <img src="img/bitcoin.svg" alt=""/>
-                                                <span>Token Name</span>
+                                            <img src="img/bitcoin.svg" alt="" />
+                                            <span>Token Name</span>
                                         </div>
                                         <div class="wallet__sum">
                                             <span>12,500 USD</span>
@@ -93,8 +140,8 @@ function Wallets() {
                                 <div class="benefit">
                                     <div class="wallet">
                                         <div class="wallet__top">
-                                            <img src="img/bitcoin.svg" alt=""/>
-                                                <span>Token Name</span>
+                                            <img src="img/bitcoin.svg" alt="" />
+                                            <span>Token Name</span>
                                         </div>
                                         <div class="wallet__sum">
                                             <span>1,400 USD</span>
@@ -201,6 +248,7 @@ function Wallets() {
                                         </div>
                                     </div>
                                     <div class="balance-history__items">
+                                        {!walletTrs.length ? (<p>У вас нет транзакций!</p>) : (<></>)}
                                         {walletTrs.map(item => (
                                             <div class="transaction-card">
                                                 <div class="transaction-card__content">
@@ -319,8 +367,58 @@ function Wallets() {
                     </div>
                 </section>
 
+                <div className={isOpen ? "dialog active" : "dialog"}>
+                    {modalTarget == 'withdraw' ? (
+                        <div className="dialog-content-wraap">
+                            <div className="dialog-header">
+                                <h4>Вывод</h4>
+                                <img onClick={() => closeModal()} className="icon" src="/svg/close.svg" alt="" />
+                            </div>
+                            <form class="dialog-body auth-form">
+                                <fieldset class="fg _required">
+                                    <label>Кошелек</label>
+                                    <input type="text" name="title" onInput={e => setAddress(e.target.value)} />
+                                    {validator?.address ? (
+                                        <p>{validator?.address[0]}</p>
+                                    ) : ''}
+
+                                </fieldset>
+                                <fieldset class="fg _required">
+                                    <label>Сумма</label>
+                                    <input type="number" name="content" onInput={e => setAmount(e.target.value)} />
+                                    {validator?.amount ? (
+                                        <p>{validator?.amount[0]}</p>
+                                    ) : ''}
+
+                                </fieldset>
+                                <div class="auth-form__nav">
+                                    <button type="button" onClick={() => withdarw()} class="auth-form__btn m-btn m-btn-purple">
+                                        <span>Продолжить</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    ) : (
+                        <div className="dialog-content-wraap">
+                            <div className="dialog-header">
+                                <h4>Ввод</h4>
+                                <img onClick={() => closeModal()} className="icon" src="/svg/close.svg" alt="" />
+                            </div>
+                            <div class="dialog-body share-wallet">
+                                <button className="address" onClick={() => navigator.clipboard.writeText(atob(localStorage.getItem(btoa('wallet'))))}>{atob(localStorage.getItem(btoa('wallet')))}</button>
+                                <div class="auth-form__nav">
+                                    <button type="button" class="auth-form__btn m-btn m-btn-purple">
+                                        <span>Поделиться</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    <div className="dialog-overlay" onClick={() => closeModal()}></div>
+                </div>
 
             </main>
+
         </>
     )
 }

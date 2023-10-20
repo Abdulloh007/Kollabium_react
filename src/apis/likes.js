@@ -26,7 +26,7 @@ export function updateLike(body) {
 }
 
 export function deleteALike(id) {
-    return axios.delete(apis.likes + id, {
+    return axios.delete(apis.likes + '/' + id, {
         headers: apiHeader
     })
 }

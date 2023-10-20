@@ -36,3 +36,100 @@
     transform: rotate(360deg);
   }
 }
+
+/* Dialog Styels */
+.dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .2s ease-out;
+  -webkit-transition: .2s ease-out;
+  -moz-transition: .2s ease-out;
+  -ms-transition: .2s ease-out;
+  -o-transition: .2s ease-out;
+}
+
+.dialog.active {
+  z-index: 25;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dialog-content-wraap {
+  background-color: #fff;
+  width: 500px;
+  max-width: 95%;
+  padding: 30px 30px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  z-index: 2;
+}
+
+.dialog-content-wraap > * {
+  width: 100%;
+}
+
+.dialog-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: #0000007a;
+  width: 100%;
+  height: 100%;
+}
+
+.dialog-header {
+  display: flex;
+}
+
+.dialog-header h4 {
+  font-size: 20px;
+  font-weight: 600;
+  width: calc(100% - 20px);
+}
+
+.dialog-header .icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.share-wallet {
+  margin-top: 10px;
+  padding: 20px 0;
+}
+.share-wallet .address {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background-color: #e1e1e1;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+}
+
+.share-wallet .address:focus {
+  background-color: rgb(181, 255, 181);
+}
+
+.share-wallet .address:focus::after {
+  content: 'Copied!';
+  position: absolute;
+  right: 10px;
+}

@@ -1,21 +1,71 @@
 import { useEffect, useState } from "react";
-import { getMe } from "../../apis/users";
+import { getMe, updatePersonalInformationil, uploadFile } from "../../apis/users";
 import { getNews } from "../../apis/news";
-import { getPosts } from "../../apis/posts";
-import { getUser } from "../../apis/users";
-import { Link } from "react-router-dom";
+import { getUser, getMyBalance } from "../../apis/users";
+import { Link, useNavigate } from "react-router-dom";
 import { Image, Shimmer } from 'react-shimmer';
+import '../css/home.css';
+import Post from "../../components/Post";
+import { useDispatch, useSelector } from "react-redux";
+import { setPost } from "../../store/posts";
+import { getPosts } from "../../apis/posts";
+import { setAvatar } from "../../store/sidebar";
 
 function Feed() {
+    const dispatch = useDispatch()
     const [me, setMe] = useState({})
+    const [wallet, setWallet] = useState({})
     const [news, setNews] = useState([])
-    const [posts, setPosts] = useState([])
+    const posts = useSelector((state) => state.posts.posts)
+    const [isOpen, setOpenSate] = useState(false)
+    const [modalStep, setModalStep] = useState(1)
+    const [previewedAvatar, setPreviewedAvatar] = useState('')
 
     useEffect(() => {
+        getPosts().then(res => dispatch(setPost(res.data.data)))
         getMe().then(res => setMe(res.data.data))
         getNews().then(res => setNews(res.data.data))
-        getPosts().then(res => setPosts(res.data.data))
+        getMyBalance(atob(localStorage.getItem(btoa('wallet')))).then(res => setWallet(res.data.result))
     }, [])
+
+    function openModal() {
+        setOpenSate(true)
+    }
+
+    function closeModal() {
+        setOpenSate(false)
+    }
+
+    function previewAvatar(e) {
+        // const avinp = document.querySelector('#avatar_uploader')
+        if (e.target.files.length > 0) {
+            setModalStep(2)
+            uploadFile(e.target.files[0]).then(res => {
+                setPreviewedAvatar('https://dev.backend.kollabium.com' + res.data.data.asset)
+            })
+        }
+
+    }
+
+    function saveAvtar() {
+        const id = localStorage.getItem(btoa('id'))
+        updatePersonalInformationil(JSON.stringify({
+            records: [
+                {
+                    system_name: "profile_photo",
+                    user_id: parseInt(id),
+                    value: previewedAvatar
+                }
+            ]
+        })).then(res => {
+            getMe().then(res => {
+                setMe(res.data.data)
+                localStorage.setItem(btoa('avatar'), btoa(res.data.data.user_information?.profile_photo?.value ? res.data.data.user_information?.profile_photo?.value : res.data.data.avatar))
+                dispatch(setAvatar(res.data.data.user_information?.profile_photo?.value ? res.data.data.user_information?.profile_photo?.value : res.data.data.avatar))
+            })
+            closeModal()
+        })
+    }
 
     return (
         <>
@@ -32,23 +82,23 @@ function Feed() {
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M9.52961 16.1221C9.268 15.4771 8.79028 14.9432 8.17828 14.6118C7.56628 14.2803 6.85808 14.172 6.17498 14.3053C5.49188 14.4386 4.87638 14.8053 4.43391 15.3425C3.99144 15.8797 3.74953 16.5541 3.74961 17.2501C3.74961 17.5582 3.68633 17.863 3.56369 18.1457C3.44105 18.4283 3.26167 18.6828 3.03665 18.8932C2.81164 19.1037 2.5458 19.2657 2.2556 19.3693C1.9654 19.4728 1.65703 19.5156 1.34961 19.4951C1.84406 20.354 2.60824 21.0257 3.52353 21.4059C4.43882 21.786 5.45401 21.8534 6.41151 21.5975C7.369 21.3416 8.21523 20.7767 8.81882 19.9906C9.42242 19.2045 9.74961 18.2412 9.74961 17.2501C9.74961 16.8511 9.67161 16.4701 9.52961 16.1221ZM9.52961 16.1221C10.7186 15.717 11.8558 15.1732 12.9176 14.5021M7.87461 14.4771C8.27982 13.2855 8.82425 12.146 9.49661 11.0821M12.9166 14.5021C14.813 13.3039 16.4361 11.7203 17.6806 9.85407L21.5566 4.04007C21.7051 3.81864 21.7721 3.55252 21.7462 3.28717C21.7203 3.02182 21.603 2.77369 21.4145 2.58517C21.226 2.39664 20.9779 2.27941 20.7125 2.2535C20.4472 2.22758 20.181 2.29459 19.9596 2.44307L14.1456 6.32007C12.2791 7.56421 10.6952 9.187 9.49661 11.0831C11.0185 11.7635 12.2361 12.9812 12.9166 14.5031" stroke="#F6F6F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
-                                                <span class="text16">Designer</span>
+                                                <span class="text16">{me.user_information?.skill_box?.value}</span>
                                             </div>
                                             <div class="badge">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M6.75 3V5.25M17.25 3V5.25M3 18.75V7.5C3 6.90326 3.23705 6.33097 3.65901 5.90901C4.08097 5.48705 4.65326 5.25 5.25 5.25H18.75C19.3467 5.25 19.919 5.48705 20.341 5.90901C20.7629 6.33097 21 6.90326 21 7.5V18.75M3 18.75C3 19.3467 3.23705 19.919 3.65901 20.341C4.08097 20.7629 4.65326 21 5.25 21H18.75C19.3467 21 19.919 20.7629 20.341 20.341C20.7629 19.919 21 19.3467 21 18.75M3 18.75V11.25C3 10.6533 3.23705 10.081 3.65901 9.65901C4.08097 9.23705 4.65326 9 5.25 9H18.75C19.3467 9 19.919 9.23705 20.341 9.65901C20.7629 10.081 21 10.6533 21 11.25V18.75" stroke="#F6F6F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
-                                                <span class="text16">06.03.1987 г.</span>
+                                                <span class="text16">{me.user_information?.birthday?.value} г.</span>
                                             </div>
-                                            <div class="badge">
+                                            <Link to="/profile" class="badge">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M9.19999 3.04444C9.30471 2.44222 9.85162 2 10.4916 2H13.5089C14.1489 2 14.6959 2.44222 14.8006 3.04444L15.0484 4.46778C15.1218 4.88333 15.4127 5.23 15.799 5.43444C15.8851 5.47889 15.97 5.52667 16.055 5.57556C16.432 5.79333 16.8928 5.86111 17.3059 5.71333L18.7221 5.20667C19.0123 5.10245 19.3318 5.09998 19.6237 5.19968C19.9157 5.29938 20.1611 5.49479 20.3162 5.75111L21.8243 8.24778C21.9791 8.50412 22.0337 8.80459 21.9783 9.09574C21.9229 9.38689 21.7611 9.64983 21.5218 9.83778L20.3546 10.7567C20.0137 11.0233 19.845 11.4378 19.8531 11.8589C19.855 11.9533 19.855 12.0478 19.8531 12.1422C19.845 12.5622 20.0137 12.9756 20.3535 13.2422L21.5229 14.1622C22.0163 14.5511 22.1443 15.2222 21.8255 15.7511L20.3151 18.2478C20.1601 18.504 19.915 18.6995 19.6233 18.7994C19.3316 18.8993 19.0122 18.8972 18.7221 18.7933L17.3059 18.2867C16.8928 18.1389 16.4332 18.2067 16.0538 18.4244C15.9695 18.4734 15.8841 18.5208 15.7978 18.5667C15.4127 18.77 15.1218 19.1167 15.0484 19.5322L14.8006 20.9544C14.6959 21.5578 14.1489 22 13.5089 22H10.4905C9.85046 22 9.30355 21.5578 9.19882 20.9556L8.95097 19.5322C8.87882 19.1167 8.58791 18.77 8.20158 18.5656C8.1153 18.5201 8.02995 18.4731 7.94558 18.4244C7.5674 18.2067 7.10776 18.1389 6.6935 18.2867L5.27735 18.7933C4.98729 18.8972 4.66803 18.8996 4.37635 18.7999C4.08466 18.7002 3.83946 18.505 3.68433 18.2489L2.17509 15.7522C2.02026 15.4959 1.96569 15.1954 2.02109 14.9043C2.07649 14.6131 2.23827 14.3502 2.47764 14.1622L3.64593 13.2433C3.98571 12.9767 4.15444 12.5622 4.1463 12.1411C4.14448 12.0467 4.14448 11.9522 4.1463 11.8578C4.15444 11.4378 3.98571 11.0244 3.64593 10.7578L2.47764 9.83778C2.23855 9.64988 2.07696 9.38715 2.02157 9.09625C1.96618 8.80535 2.02057 8.50512 2.17509 8.24889L3.68433 5.75222C3.83931 5.49571 4.08464 5.30006 4.3766 5.20015C4.66855 5.10024 4.98818 5.10255 5.27852 5.20667L6.6935 5.71333C7.10776 5.86111 7.5674 5.79333 7.94558 5.57556C8.02936 5.52667 8.11547 5.47889 8.20158 5.43333C8.58791 5.23 8.87882 4.88333 8.95097 4.46778L9.19999 3.04444Z" stroke="#F6F6F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                     <path d="M15 12C15 12.7956 14.6839 13.5587 14.1213 14.1213C13.5587 14.6839 12.7956 15 12 15C11.2044 15 10.4413 14.6839 9.87868 14.1213C9.31607 13.5587 9 12.7956 9 12C9 11.2044 9.31607 10.4413 9.87868 9.87868C10.4413 9.31607 11.2044 9 12 9C12.7956 9 13.5587 9.31607 14.1213 9.87868C14.6839 10.4413 15 11.2044 15 12Z" stroke="#F6F6F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
-                                            </div>
+                                            </Link>
                                         </div>
                                         <div class="text40 font2">
-                                            {me.login}
+                                            {me.user_information?.first_name?.value}  {me.user_information?.last_name?.value}
                                         </div>
                                         <div class="service-question">
                                             <div class="text16 medium-text purple-text2">
@@ -65,30 +115,34 @@ function Feed() {
                                         </div>
 
                                         <div class="user__socials">
-                                            <a href="" class="user__social">
-                                                <span class="user__social-btn m-btn m-btn-white round-btn">
-                                                    <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M4.91725 10.492L0.400472 8.88629C0.400472 8.88629 -0.139333 8.64734 0.0344845 8.1055C0.0702658 7.99377 0.142445 7.8987 0.358367 7.7353C1.35916 6.9742 18.8823 0.102439 18.8823 0.102439C18.8823 0.102439 19.3771 -0.0794642 19.6689 0.0415241C19.7411 0.0659047 19.806 0.110769 19.8571 0.171528C19.9082 0.232286 19.9435 0.306757 19.9596 0.387325C19.9911 0.529628 20.0043 0.676034 19.9988 0.822311C19.9974 0.948852 19.9833 1.06614 19.9727 1.25006C19.866 3.12883 16.6722 17.1507 16.6722 17.1507C16.6722 17.1507 16.4811 17.9712 15.7965 17.9993C15.6282 18.0052 15.4606 17.9741 15.3036 17.9079C15.1466 17.8416 15.0034 17.7415 14.8827 17.6136C13.5392 16.3527 8.89561 12.9479 7.86951 12.1991C7.84637 12.1819 7.82688 12.1595 7.81235 12.1333C7.79782 12.1072 7.7886 12.078 7.78531 12.0476C7.77096 11.9687 7.84962 11.8709 7.84962 11.8709C7.84962 11.8709 15.9353 4.02943 16.1504 3.20623C16.1671 3.14246 16.1042 3.11099 16.0196 3.13893C15.4826 3.35448 6.17299 9.76888 5.14551 10.4768C5.07155 10.5012 4.99337 10.5064 4.91725 10.492Z" fill="#795AA0" />
-                                                    </svg>
-                                                </span>
-                                                <span class="text16">Telegram</span>
-                                            </a>
-                                            <a href="" class="user__social">
-                                                <span class="user__social-btn m-btn m-btn-white round-btn">
-                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M10.0009 0C7.28508 0 6.94424 0.0118752 5.87756 0.0604169C4.81297 0.109167 4.08629 0.277708 3.45045 0.525C2.79274 0.780417 2.23481 1.12208 1.67898 1.67813C1.12272 2.23396 0.78105 2.79187 0.524797 3.44937C0.276878 4.08542 0.108126 4.81229 0.0602089 5.87646C0.0125 6.94312 0 7.28417 0 10C0 12.7158 0.0120837 13.0556 0.0604175 14.1223C0.109376 15.1869 0.27792 15.9135 0.525006 16.5494C0.780633 17.2071 1.1223 17.765 1.67835 18.3208C2.23398 18.8771 2.7919 19.2196 3.4492 19.475C4.08546 19.7223 4.81234 19.8908 5.87673 19.9396C6.94341 19.9881 7.28403 20 9.99969 20C12.7158 20 13.0556 19.9881 14.1222 19.9396C15.1868 19.8908 15.9143 19.7223 16.5506 19.475C17.2081 19.2196 17.7652 18.8771 18.3208 18.3208C18.8771 17.765 19.2187 17.2071 19.475 16.5496C19.7208 15.9135 19.8896 15.1867 19.9396 14.1225C19.9875 13.0558 20 12.7158 20 10C20 7.28417 19.9875 6.94333 19.9396 5.87667C19.8896 4.81208 19.7208 4.08542 19.475 3.44958C19.2187 2.79187 18.8771 2.23396 18.3208 1.67813C17.7646 1.12188 17.2083 0.780208 16.55 0.525C15.9125 0.277708 15.1854 0.109167 14.1208 0.0604169C13.0541 0.0118752 12.7145 0 9.99781 0H10.0009ZM9.10385 1.80208C9.3701 1.80167 9.66718 1.80208 10.0009 1.80208C12.671 1.80208 12.9874 1.81167 14.0418 1.85958C15.0168 1.90417 15.546 2.06708 15.8985 2.20396C16.3652 2.38521 16.6979 2.60187 17.0477 2.95187C17.3977 3.30187 17.6143 3.63521 17.796 4.10187C17.9329 4.45396 18.096 4.98312 18.1404 5.95812C18.1883 7.01229 18.1987 7.32896 18.1987 9.99771C18.1987 12.6665 18.1883 12.9831 18.1404 14.0373C18.0958 15.0123 17.9329 15.5415 17.796 15.8935C17.6148 16.3602 17.3977 16.6925 17.0477 17.0423C16.6977 17.3923 16.3654 17.609 15.8985 17.7902C15.5464 17.9277 15.0168 18.0902 14.0418 18.1348C12.9876 18.1827 12.671 18.1931 10.0009 18.1931C7.3307 18.1931 7.01424 18.1827 5.96006 18.1348C4.98505 18.0898 4.45588 17.9269 4.10317 17.79C3.6365 17.6087 3.30316 17.3921 2.95316 17.0421C2.60315 16.6921 2.38648 16.3596 2.20481 15.8927C2.06794 15.5406 1.90481 15.0115 1.86044 14.0365C1.81252 12.9823 1.80294 12.6656 1.80294 9.99521C1.80294 7.32479 1.81252 7.00979 1.86044 5.95563C1.90502 4.98063 2.06794 4.45146 2.20481 4.09896C2.38607 3.63229 2.60315 3.29896 2.95316 2.94896C3.30316 2.59896 3.6365 2.38229 4.10317 2.20062C4.45567 2.06312 4.98505 1.90063 5.96006 1.85583C6.88257 1.81417 7.24008 1.80167 9.10385 1.79958V1.80208ZM15.3389 3.4625C14.6764 3.4625 14.1389 3.99937 14.1389 4.66208C14.1389 5.32458 14.6764 5.86208 15.3389 5.86208C16.0014 5.86208 16.5389 5.32458 16.5389 4.66208C16.5389 3.99958 16.0014 3.46208 15.3389 3.46208V3.4625ZM10.0009 4.86458C7.16487 4.86458 4.86547 7.16396 4.86547 10C4.86547 12.836 7.16487 15.1344 10.0009 15.1344C12.837 15.1344 15.1356 12.836 15.1356 10C15.1356 7.16396 12.837 4.86458 10.0009 4.86458ZM10.0009 6.66667C11.8418 6.66667 13.3343 8.15896 13.3343 10C13.3343 11.8408 11.8418 13.3333 10.0009 13.3333C8.15988 13.3333 6.66757 11.8408 6.66757 10C6.66757 8.15896 8.15988 6.66667 10.0009 6.66667Z" fill="#795AA0" />
-                                                    </svg>
-                                                </span>
-                                                <span class="text16">Instagram</span>
-                                            </a>
+                                            {me.user_information?.tg_link ? (
+                                                <a href={me.user_information?.tg_link?.value} class="user__social">
+                                                    <span class="user__social-btn m-btn m-btn-white round-btn">
+                                                        <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M4.91725 10.492L0.400472 8.88629C0.400472 8.88629 -0.139333 8.64734 0.0344845 8.1055C0.0702658 7.99377 0.142445 7.8987 0.358367 7.7353C1.35916 6.9742 18.8823 0.102439 18.8823 0.102439C18.8823 0.102439 19.3771 -0.0794642 19.6689 0.0415241C19.7411 0.0659047 19.806 0.110769 19.8571 0.171528C19.9082 0.232286 19.9435 0.306757 19.9596 0.387325C19.9911 0.529628 20.0043 0.676034 19.9988 0.822311C19.9974 0.948852 19.9833 1.06614 19.9727 1.25006C19.866 3.12883 16.6722 17.1507 16.6722 17.1507C16.6722 17.1507 16.4811 17.9712 15.7965 17.9993C15.6282 18.0052 15.4606 17.9741 15.3036 17.9079C15.1466 17.8416 15.0034 17.7415 14.8827 17.6136C13.5392 16.3527 8.89561 12.9479 7.86951 12.1991C7.84637 12.1819 7.82688 12.1595 7.81235 12.1333C7.79782 12.1072 7.7886 12.078 7.78531 12.0476C7.77096 11.9687 7.84962 11.8709 7.84962 11.8709C7.84962 11.8709 15.9353 4.02943 16.1504 3.20623C16.1671 3.14246 16.1042 3.11099 16.0196 3.13893C15.4826 3.35448 6.17299 9.76888 5.14551 10.4768C5.07155 10.5012 4.99337 10.5064 4.91725 10.492Z" fill="#795AA0" />
+                                                        </svg>
+                                                    </span>
+                                                    <span class="text16">Telegram</span>
+                                                </a>
+                                            ) : (<></>)}
+                                            {me.user_information?.ig_link ? (
+                                                <a href={me.user_information?.ig_link?.value} class="user__social">
+                                                    <span class="user__social-btn m-btn m-btn-white round-btn">
+                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M10.0009 0C7.28508 0 6.94424 0.0118752 5.87756 0.0604169C4.81297 0.109167 4.08629 0.277708 3.45045 0.525C2.79274 0.780417 2.23481 1.12208 1.67898 1.67813C1.12272 2.23396 0.78105 2.79187 0.524797 3.44937C0.276878 4.08542 0.108126 4.81229 0.0602089 5.87646C0.0125 6.94312 0 7.28417 0 10C0 12.7158 0.0120837 13.0556 0.0604175 14.1223C0.109376 15.1869 0.27792 15.9135 0.525006 16.5494C0.780633 17.2071 1.1223 17.765 1.67835 18.3208C2.23398 18.8771 2.7919 19.2196 3.4492 19.475C4.08546 19.7223 4.81234 19.8908 5.87673 19.9396C6.94341 19.9881 7.28403 20 9.99969 20C12.7158 20 13.0556 19.9881 14.1222 19.9396C15.1868 19.8908 15.9143 19.7223 16.5506 19.475C17.2081 19.2196 17.7652 18.8771 18.3208 18.3208C18.8771 17.765 19.2187 17.2071 19.475 16.5496C19.7208 15.9135 19.8896 15.1867 19.9396 14.1225C19.9875 13.0558 20 12.7158 20 10C20 7.28417 19.9875 6.94333 19.9396 5.87667C19.8896 4.81208 19.7208 4.08542 19.475 3.44958C19.2187 2.79187 18.8771 2.23396 18.3208 1.67813C17.7646 1.12188 17.2083 0.780208 16.55 0.525C15.9125 0.277708 15.1854 0.109167 14.1208 0.0604169C13.0541 0.0118752 12.7145 0 9.99781 0H10.0009ZM9.10385 1.80208C9.3701 1.80167 9.66718 1.80208 10.0009 1.80208C12.671 1.80208 12.9874 1.81167 14.0418 1.85958C15.0168 1.90417 15.546 2.06708 15.8985 2.20396C16.3652 2.38521 16.6979 2.60187 17.0477 2.95187C17.3977 3.30187 17.6143 3.63521 17.796 4.10187C17.9329 4.45396 18.096 4.98312 18.1404 5.95812C18.1883 7.01229 18.1987 7.32896 18.1987 9.99771C18.1987 12.6665 18.1883 12.9831 18.1404 14.0373C18.0958 15.0123 17.9329 15.5415 17.796 15.8935C17.6148 16.3602 17.3977 16.6925 17.0477 17.0423C16.6977 17.3923 16.3654 17.609 15.8985 17.7902C15.5464 17.9277 15.0168 18.0902 14.0418 18.1348C12.9876 18.1827 12.671 18.1931 10.0009 18.1931C7.3307 18.1931 7.01424 18.1827 5.96006 18.1348C4.98505 18.0898 4.45588 17.9269 4.10317 17.79C3.6365 17.6087 3.30316 17.3921 2.95316 17.0421C2.60315 16.6921 2.38648 16.3596 2.20481 15.8927C2.06794 15.5406 1.90481 15.0115 1.86044 14.0365C1.81252 12.9823 1.80294 12.6656 1.80294 9.99521C1.80294 7.32479 1.81252 7.00979 1.86044 5.95563C1.90502 4.98063 2.06794 4.45146 2.20481 4.09896C2.38607 3.63229 2.60315 3.29896 2.95316 2.94896C3.30316 2.59896 3.6365 2.38229 4.10317 2.20062C4.45567 2.06312 4.98505 1.90063 5.96006 1.85583C6.88257 1.81417 7.24008 1.80167 9.10385 1.79958V1.80208ZM15.3389 3.4625C14.6764 3.4625 14.1389 3.99937 14.1389 4.66208C14.1389 5.32458 14.6764 5.86208 15.3389 5.86208C16.0014 5.86208 16.5389 5.32458 16.5389 4.66208C16.5389 3.99958 16.0014 3.46208 15.3389 3.46208V3.4625ZM10.0009 4.86458C7.16487 4.86458 4.86547 7.16396 4.86547 10C4.86547 12.836 7.16487 15.1344 10.0009 15.1344C12.837 15.1344 15.1356 12.836 15.1356 10C15.1356 7.16396 12.837 4.86458 10.0009 4.86458ZM10.0009 6.66667C11.8418 6.66667 13.3343 8.15896 13.3343 10C13.3343 11.8408 11.8418 13.3333 10.0009 13.3333C8.15988 13.3333 6.66757 11.8408 6.66757 10C6.66757 8.15896 8.15988 6.66667 10.0009 6.66667Z" fill="#795AA0" />
+                                                        </svg>
+                                                    </span>
+                                                    <span class="text16">Instagram</span>
+                                                </a>
+                                            ) : (<></>)}
                                         </div>
                                         <div class="user__text">
                                             <div class="text18">
-                                                Я пишу о дизайне и пользовательском опыте статьи, рисую к ним мемы и иллюстрации, мои статьи можно прочитать на этом ресурсе. Записывайтесь ко мне на консультациюю и я проведу бесплатный аудит вашего проекта, чтобы получить пользу.
+                                                {me.user_information?.about_me?.value}
                                             </div>
                                         </div>
                                     </div>
-                                    <button class="user__btn m-btn m-btn-white round-btn">
+                                    <button class="user__btn m-btn m-btn-white round-btn" onClick={() => openModal()}>
                                         <svg width="52" height="42" viewBox="0 0 52 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11 27L18.9369 18.7456C19.2584 18.4113 19.64 18.1461 20.0599 17.9652C20.4799 17.7843 20.93 17.6912 21.3846 17.6912C21.8392 17.6912 22.2893 17.7843 22.7093 17.9652C23.1293 18.1461 23.5109 18.4113 23.8323 18.7456L31.7692 27M29.4615 24.6L31.6292 22.3456C31.9507 22.0113 32.3323 21.7461 32.7522 21.5652C33.1722 21.3843 33.6223 21.2912 34.0769 21.2912C34.5315 21.2912 34.9816 21.3843 35.4016 21.5652C35.8216 21.7461 36.2032 22.0113 36.5246 22.3456L41 27M13.3077 33H38.6923C39.3043 33 39.8913 32.7471 40.3241 32.2971C40.7569 31.847 41 31.2365 41 30.6V11.4C41 10.7635 40.7569 10.153 40.3241 9.70294C39.8913 9.25286 39.3043 9 38.6923 9H13.3077C12.6957 9 12.1087 9.25286 11.6759 9.70294C11.2431 10.153 11 10.7635 11 11.4V30.6C11 31.2365 11.2431 31.847 11.6759 32.2971C12.1087 32.7471 12.6957 33 13.3077 33ZM29.4615 15H29.4738V15.0128H29.4615V15ZM30.0385 15C30.0385 15.1591 29.9777 15.3117 29.8695 15.4243C29.7613 15.5368 29.6145 15.6 29.4615 15.6C29.3085 15.6 29.1618 15.5368 29.0536 15.4243C28.9454 15.3117 28.8846 15.1591 28.8846 15C28.8846 14.8409 28.9454 14.6883 29.0536 14.5757C29.1618 14.4632 29.3085 14.4 29.4615 14.4C29.6145 14.4 29.7613 14.4632 29.8695 14.5757C29.9777 14.6883 30.0385 14.8409 30.0385 15Z" stroke="#795AA0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                             <path d="M45 1V9M49 5H41" stroke="#795AA0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -118,20 +172,39 @@ function Feed() {
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="wallet">
-                                            <div class="wallet__top">
-                                                <img src="img/bitcoin.svg" alt="" />
-                                                <span>Token Name</span>
-                                            </div>
-                                            <div class="wallet__sum">
-                                                <span>12,500 USD</span>
-                                            </div>
-                                            <div class="effect-1"></div>
-                                            <div class="effect-2"></div>
-                                            <div class="wallet__desc">
-                                                ВАШ КОШЕЛЕК
-                                            </div>
-                                        </div>
+                                        {wallet.kollabium
+                                            ? (
+                                                <Link to="/wallets" class="wallet">
+                                                    <div class="wallet__top">
+                                                        <img src={wallet?.kollabium?.avatar} alt="" />
+                                                        <span>Kollabium</span>
+                                                    </div>
+                                                    <div class="wallet__sum">
+                                                        <span>{wallet?.kollabium?.amount ? (wallet?.kollabium?.amount / Math.pow(10, 18)).toFixed(3) : 0.00} KollabiuM</span>
+                                                    </div>
+                                                    <div class="effect-1"></div>
+                                                    <div class="effect-2"></div>
+                                                    <div class="wallet__desc">
+                                                        ВАШ КОШЕЛЕК
+                                                    </div>
+                                                </Link>
+                                            )
+                                            : (
+                                                <Link to="/wallets" class="wallet">
+                                                    <div class="wallet__top">
+                                                        <img src={wallet?.del?.avatar} alt="" />
+                                                        <span>Del</span>
+                                                    </div>
+                                                    <div class="wallet__sum">
+                                                        <span>{wallet?.del?.amount ? (wallet?.del?.amount / Math.pow(10, 18)).toFixed(3) : 0.00} Del</span>
+                                                    </div>
+                                                    <div class="effect-1"></div>
+                                                    <div class="effect-2"></div>
+                                                    <div class="wallet__desc">
+                                                        ВАШ КОШЕЛЕК
+                                                    </div>
+                                                </Link>
+                                            )}
                                     </div>
                                     <button class="balance__btn m-btn m-btn-white round-btn">
                                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -307,7 +380,7 @@ function Feed() {
 
                                 <div class="user-main">
                                     <div class="user-main__img">
-                                        <img src={me.avatar} alt="" />
+                                        <img src={me.user_information?.profile_photo?.value ? me.user_information?.profile_photo?.value : me.avatar} alt="" />
                                     </div>
                                 </div>
 
@@ -326,7 +399,7 @@ function Feed() {
                                                         <div class="text16 font2">
                                                             {item.title}
                                                         </div>
-                                                        <div class="text14" dangerouslySetInnerHTML={{__html: item.content}}></div>
+                                                        <div class="text14" dangerouslySetInnerHTML={{ __html: item.content }}></div>
                                                         <div class="news-card__nav">
                                                             <button class="badge _small _btn">
                                                                 <span class="text12">Поздравить</span>
@@ -506,7 +579,7 @@ function Feed() {
                                                             <div class="text16 font2">
                                                                 {item.title}
                                                             </div>
-                                                            <div class="text16" dangerouslySetInnerHTML={{__html: item.content}}></div>
+                                                            <div class="text16" dangerouslySetInnerHTML={{ __html: item.content }}></div>
                                                             <div class="news-card__nav">
                                                                 <button class="badge anim-btn _small _btn">
                                                                     <span class="text14">Поздравить</span>
@@ -826,95 +899,9 @@ function Feed() {
                                             </button>
                                         </div>
                                     </div>
-
-                                    {posts[0]
-                                        ? (
-                                            <div class="feed-item">
-                                                <div class="feed-item__top">
-                                                    <div class="feed-item__user">
-                                                        <div class="avatar">
-                                                            <img src={posts[0]?.user_info.avatar} alt="" />
-                                                        </div>
-                                                        <div class="feed-item__user-info">
-                                                            <div class="text20 text14-mob font2">
-                                                                {posts[0]?.user_info.login}
-                                                            </div>
-                                                            <div class="text18 text10-mob">
-                                                                @{posts[0]?.user_info.nick}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-item__action">
-                                                        <button class="feed-item__btn anim-btn">
-                                                            <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M32 7.90909C32 3.54152 28.2684 0 23.6658 0C20.2258 0 17.2711 1.97903 16 4.80345C14.7289 1.97903 11.7742 0 8.33244 0C3.73333 0 0 3.54152 0 7.90909C0 20.5988 16 29 16 29C16 29 32 20.5988 32 7.90909Z" fill="#795AA0" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{posts[0]?.likes_count}</span>
-                                                        </button>
-                                                        <button class="feed-item__btn anim-btn _comments">
-                                                            <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M21 39.2609C32.0444 39.2609 41 30.6951 41 20.1304C41 9.56579 32.0444 1 21 1C9.95556 1 1 9.56579 1 20.1304C1 25.0093 2.90889 29.4591 6.05111 32.8377C7.01111 33.8742 7.69556 35.2493 7.35333 36.6429C6.9786 38.1668 6.27728 39.582 5.30222 40.782C6.08254 40.9283 6.87386 41.0012 7.66667 41C10.5156 41 13.1556 40.0678 15.3222 38.4794C17.1222 38.9896 19.0289 39.2609 21 39.2609Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{posts[0]?.comments_count}</span>
-                                                        </button>
-                                                        <button class="feed-item__btn anim-btn _saves">
-                                                            <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M25.4403 1.68294C27.4936 1.95314 29 3.95641 29 6.29532V39L15 31.084L1 39V6.29532C1 3.95641 2.50453 1.95314 4.55973 1.68294C11.4966 0.772355 18.5034 0.772355 25.4403 1.68294Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{posts[0]?.favorites_count}</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="gallery">
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery2.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery3.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery4.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery5.png" alt="" />
-                                                        </div>
-
-                                                        <div class="gallery-item__count">
-                                                            <span class="text24 bold-text">+45</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="feed-item__text">
-                                                    <div class="text18 text16-mob">
-                                                        {/* {posts[0]?.content.slice(0, 60)}... */}
-                                                        <span dangerouslySetInnerHTML={{ __html: posts[0]?.content.slice(0, 60) }}></span>...
-                                                        <button>Ещё</button>
-                                                    </div>
-                                                </div>
-                                                <div class="feed-item__tags">
-                                                    {posts[0]?.tags.map(item => (
-                                                        <a href="" class="feed-item__tag"><span>#{item.slug}</span></a>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )
-                                        : (<><Shimmer width={'100%'} height={400} /></>)
-                                    }
+                                    
+                                    {posts?.length > 0 ? (<Post data={posts[0]}></Post>) : (<><Shimmer width={'100%'} height={400} /></>)}
+                                    
 
                                     <div class="posts">
                                         <div class="text24 font2">
@@ -1035,62 +1022,7 @@ function Feed() {
                                         </div>
                                     </div>
 
-                                    {posts[1]
-                                        ? (
-                                            <div class="feed-item">
-                                                <div class="feed-item__top">
-                                                    <div class="feed-item__user">
-                                                        <div class="avatar">
-                                                            <img src={posts[1]?.user_info.avatar} alt="" />
-                                                        </div>
-                                                        <div class="feed-item__user-info">
-                                                            <div class="text20 text14-mob font2">
-                                                                {posts[1]?.user_info.login}
-                                                            </div>
-                                                            <div class="text18 text10-mob">
-                                                                @{posts[1]?.user_info.nick}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-item__action">
-                                                        <button class="feed-item__btn anim-btn">
-                                                            <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M32 7.90909C32 3.54152 28.2684 0 23.6658 0C20.2258 0 17.2711 1.97903 16 4.80345C14.7289 1.97903 11.7742 0 8.33244 0C3.73333 0 0 3.54152 0 7.90909C0 20.5988 16 29 16 29C16 29 32 20.5988 32 7.90909Z" fill="#795AA0" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{posts[1]?.likes_count}</span>
-                                                        </button>
-                                                        <button class="feed-item__btn anim-btn _comments">
-                                                            <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M21 39.2609C32.0444 39.2609 41 30.6951 41 20.1304C41 9.56579 32.0444 1 21 1C9.95556 1 1 9.56579 1 20.1304C1 25.0093 2.90889 29.4591 6.05111 32.8377C7.01111 33.8742 7.69556 35.2493 7.35333 36.6429C6.9786 38.1668 6.27728 39.582 5.30222 40.782C6.08254 40.9283 6.87386 41.0012 7.66667 41C10.5156 41 13.1556 40.0678 15.3222 38.4794C17.1222 38.9896 19.0289 39.2609 21 39.2609Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{posts[1]?.comments_count}</span>
-                                                        </button>
-                                                        <button class="feed-item__btn anim-btn _saves">
-                                                            <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M25.4403 1.68294C27.4936 1.95314 29 3.95641 29 6.29532V39L15 31.084L1 39V6.29532C1 3.95641 2.50453 1.95314 4.55973 1.68294C11.4966 0.772355 18.5034 0.772355 25.4403 1.68294Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{posts[1]?.favorites_count}</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <img src="img/gallery6.webp" alt="" class="feed-item__img" />
-                                                <div class="feed-item__text">
-                                                    <div class="text18 text16-mob">
-                                                        <span dangerouslySetInnerHTML={{ __html: posts[1]?.content.slice(0, 60) }}></span>...
-                                                        {/* {posts[1]?.content.slice(0, 60)}... */}
-                                                        <button>Ещё</button>
-                                                    </div>
-                                                </div>
-                                                <div class="feed-item__tags">
-                                                    {posts[1]?.tags.map(item => (
-                                                        <a href="" class="feed-item__tag"><span>#{item.slug}</span></a>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )
-                                        : (<><Shimmer width={'100%'} height={400} /></>)
-                                    }
+                                    {posts?.length > 1 ? (<Post data={posts[1]}></Post>) : (<><Shimmer width={'100%'} height={400} /></>)}
 
                                     <div class="authors">
                                         <div class="text24 font2">
@@ -1378,91 +1310,9 @@ function Feed() {
 
                                         </div>
                                     </div>
-                                    
-                                    {posts[2]
-                                        ? posts.slice(2, posts.length).map(item => (
 
-                                            <div class="feed-item">
-                                                <div class="feed-item__top">
-                                                    <div class="feed-item__user">
-                                                        <div class="avatar">
-                                                            <img src={item?.user_info.avatar} alt="" />
-                                                        </div>
-                                                        <div class="feed-item__user-info">
-                                                            <div class="text20 text14-mob font2">
-                                                                {item?.user_info.login}
-                                                            </div>
-                                                            <div class="text18 text10-mob">
-                                                                @{item?.user_info.nick}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="feed-item__action">
-                                                        <button class="feed-item__btn anim-btn">
-                                                            <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M32 7.90909C32 3.54152 28.2684 0 23.6658 0C20.2258 0 17.2711 1.97903 16 4.80345C14.7289 1.97903 11.7742 0 8.33244 0C3.73333 0 0 3.54152 0 7.90909C0 20.5988 16 29 16 29C16 29 32 20.5988 32 7.90909Z" fill="#795AA0" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{item?.likes_count}</span>
-                                                        </button>
-                                                        <button class="feed-item__btn anim-btn _comments">
-                                                            <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M21 39.2609C32.0444 39.2609 41 30.6951 41 20.1304C41 9.56579 32.0444 1 21 1C9.95556 1 1 9.56579 1 20.1304C1 25.0093 2.90889 29.4591 6.05111 32.8377C7.01111 33.8742 7.69556 35.2493 7.35333 36.6429C6.9786 38.1668 6.27728 39.582 5.30222 40.782C6.08254 40.9283 6.87386 41.0012 7.66667 41C10.5156 41 13.1556 40.0678 15.3222 38.4794C17.1222 38.9896 19.0289 39.2609 21 39.2609Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{item?.comments_count}</span>
-                                                        </button>
-                                                        <button class="feed-item__btn anim-btn _saves">
-                                                            <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M25.4403 1.68294C27.4936 1.95314 29 3.95641 29 6.29532V39L15 31.084L1 39V6.29532C1 3.95641 2.50453 1.95314 4.55973 1.68294C11.4966 0.772355 18.5034 0.772355 25.4403 1.68294Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                            <span class="feed-item__btn-num">{item?.favorites_count}</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <div class="gallery">
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery2.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery3.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery4.png" alt="" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-item">
-                                                        <div class="gallery-item__img">
-                                                            <img src="img/gallery5.png" alt="" />
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="feed-item__text">
-                                                    <div class="text18 text16-mob">
-                                                        <span dangerouslySetInnerHTML={{ __html: item?.content.slice(0, 60) }}></span>
-                                                        {/* {item?.content.slice(0, 60)} */}
-                                                        ...<button>Ещё</button>
-                                                    </div>
-                                                </div>
-                                                <div class="feed-item__tags">
-                                                    {item?.tags.map(item => (
-                                                        <a href="" class="feed-item__tag"><span>#{item.slug}</span></a>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        ))
-
+                                    {posts?.length > 2
+                                        ? posts.slice(2, posts.length).map(item => (<Post data={item}></Post>))
                                         : (<><Shimmer width={'100%'} height={400} /></>)
                                     }
                                 </div>
@@ -1738,6 +1588,68 @@ function Feed() {
                     </div>
                 </section>
 
+                <div className={isOpen ? "dialog active" : "dialog"}>
+                    <div class="modal__dialog">
+                        {modalStep == 1 ? (
+                            <div class="modal__inner">
+                                <div class="img-input">
+                                    <input id="avatar_uploader" type="file" accept="image/*" onChange={e => previewAvatar(e)} />
+                                    <img src="img/user3.png" alt="" />
+                                    <span class="img-input__mark">
+                                        ?
+                                    </span>
+                                </div>
+                                <div class="modal__info">
+                                    <div class="text32 font2">
+                                        Загрузите ваш аватар
+                                    </div>
+                                    <div class="text16 lh150">
+                                        Ваш задний фон на фотографии будет удалён. Наши нейросети сделают это быстрее, чем вы в Фотошопе, поэтому можете не волноваться.
+                                    </div>
+                                    <div class="modal__nav">
+                                        <button class="modal__btn m-btn m-btn-purple">
+                                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3 17V19.25C3 19.8467 3.23705 20.419 3.65901 20.841C4.08097 21.2629 4.65326 21.5 5.25 21.5H18.75C19.3467 21.5 19.919 21.2629 20.341 20.841C20.7629 20.419 21 19.8467 21 19.25V17M16.5 12.5L12 17M12 17L7.5 12.5M12 17V3.5" stroke="#F6F6F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <span>Загрузить аватар</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        ) : modalStep == 2 ? (
+                            <div class="modal__inner">
+                                <div class="img-input">
+                                    <img src={previewedAvatar} alt=""/>
+                                </div>
+                                <div class="modal__info _big">
+                                    <div class="text32 font2">
+                                        Вы хотите сохранить эту фотографию как аватар профиля?
+                                    </div>
+                                    <div class="text16 lh150">
+                                        Мы как и обещали обработали вашу фотографию и убрали задний, даже немного её улучшили в качестве, чтобы вы не могли себя узнать. Сохранем
+                                    </div>
+                                    <div class="modal__nav">
+                                        <button class="modal__btn m-btn m-btn-purple" onClick={() => saveAvtar()}>
+                                            <span>Сохранить</span>
+                                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9.5 12.75L11.75 15L15.5 9.75M21.5 12C21.5 13.1819 21.2672 14.3522 20.8149 15.4442C20.3626 16.5361 19.6997 17.5282 18.864 18.364C18.0282 19.1997 17.0361 19.8626 15.9442 20.3149C14.8522 20.7672 13.6819 21 12.5 21C11.3181 21 10.1478 20.7672 9.05585 20.3149C7.96392 19.8626 6.97177 19.1997 6.13604 18.364C5.30031 17.5282 4.63738 16.5361 4.18508 15.4442C3.73279 14.3522 3.5 13.1819 3.5 12C3.5 9.61305 4.44821 7.32387 6.13604 5.63604C7.82387 3.94821 10.1131 3 12.5 3C14.8869 3 17.1761 3.94821 18.864 5.63604C20.5518 7.32387 21.5 9.61305 21.5 12Z" stroke="#F6F6F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </button>
+                                        <button class="modal__btn m-btn m-btn-purple" onClick={() => closeModal()}>
+                                            <span>Отменить</span>
+                                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.25 9.75L14.75 14.25M14.75 9.75L10.25 14.25M21.5 12C21.5 13.1819 21.2672 14.3522 20.8149 15.4442C20.3626 16.5361 19.6997 17.5282 18.864 18.364C18.0282 19.1997 17.0361 19.8626 15.9442 20.3149C14.8522 20.7672 13.6819 21 12.5 21C11.3181 21 10.1478 20.7672 9.05585 20.3149C7.96392 19.8626 6.97177 19.1997 6.13604 18.364C5.30031 17.5282 4.63738 16.5361 4.18508 15.4442C3.73279 14.3522 3.5 13.1819 3.5 12C3.5 9.61305 4.44821 7.32387 6.13604 5.63604C7.82387 3.94821 10.1131 3 12.5 3C14.8869 3 17.1761 3.94821 18.864 5.63604C20.5518 7.32387 21.5 9.61305 21.5 12Z" stroke="#F6F6F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        ) : (<></>)}
+                    </div>
+                    <div className="dialog-overlay" onClick={() => closeModal()}></div>
+                </div>
             </main>
         </>
     )

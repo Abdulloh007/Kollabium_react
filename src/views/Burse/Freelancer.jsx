@@ -1,4 +1,7 @@
+import { useLocation } from "react-router-dom";
+
 function Freelancer() {
+    const {state} = useLocation()
     return (
         <>
             <main class="content">

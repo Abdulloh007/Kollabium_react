@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { toggle } from "../store/sidebar";
+import './css/header.css'
 
 function Header() {
     // const [sidebar, setSidebarState] = useState('')
     const sidebarOpened = useSelector((state) => state.sidebar.opened)
     const dispatch = useDispatch()
+    const [isAuth, setAuth] = useState(false)
+
+    useEffect(() => {
+        if (localStorage.getItem(btoa('token'))) return setAuth(true)
+    }, [])
+
     return (
         <>
             <header class="header">
@@ -53,6 +60,8 @@ function Header() {
                                 <span>KollabiuM</span>
                             </a>
                         </div>
+                        {isAuth ? (
+
                         <div class="header__right">
                             <div class="header-search">
                                 <fieldset class="search-field">
@@ -96,6 +105,10 @@ function Header() {
                                 </button>
                             </div>
                         </div>
+                        ): (<div className="m-btn-group">
+                            <Link to={'/auth'} className="m-btn m-btn-purple m-btn-header">Войти</Link>
+                            <Link to={'/registration'} className="m-btn m-btn-purple m-btn-header">Регистрация</Link>
+                        </div>)}
                     </div>
                 </div>
                 {localStorage.getItem(btoa('token')) ? (

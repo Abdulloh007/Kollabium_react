@@ -1,0 +1,8 @@
+.auth-form__nav {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.auth-form__nav *:first-child {
+    margin-right: 20px;
+}

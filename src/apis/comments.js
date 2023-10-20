@@ -1,8 +1,8 @@
 import axios from "axios";
 import apis, { apiHeader } from "../store/apis";
 
-export function getComments() {
-    return axios.get(apis.comments, {
+export function getComments(data) {
+    return axios.get(apis.comments + data, {
         headers: apiHeader
     })
 }
@@ -19,14 +19,14 @@ export function createComment(body) {
     })
 }
 
-export function updateComment(body) {
-    return axios.put(apis.comments, body, {
+export function updateComment(id, body) {
+    return axios.put(apis.comments + '/' + id, body, {
         headers: apiHeader
     })
 }
 
 export function deleteAComment(id) {
-    return axios.delete(apis.comments + id, {
+    return axios.delete(apis.comments + '/' + id, {
         headers: apiHeader
     })
 }

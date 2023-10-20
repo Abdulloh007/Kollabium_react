@@ -1,0 +1,56 @@
+.fc-leave-comment {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.fc-leave-comment input {
+    width: calc(100% - 100px);
+    border: 1px solid #00000073;
+    background: transparent;
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+.feed-comments {
+    margin-top: 10px;
+}
+
+.feed-comments>button {
+    margin: 10px 0;
+}
+
+.fcl-item {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 14px;
+    /* border-bottom: 1px solid #00000073; */
+    border-top: 1px solid #00000073;
+    padding: 10px 0;
+}
+
+.fcl-item input, .fcl-item p {
+    border: none;
+    background: transparent;
+    width: calc(100% - 50px);
+}
+
+.fcli-action {
+    width: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.fcli-action img {
+    height: 15px;
+    cursor: pointer;
+}
+
+.fc-leave-comment>button {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+
+a.wallet:hover {
+    color: #fff;
+}
