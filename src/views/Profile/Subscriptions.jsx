@@ -1,3 +1,5 @@
+import '../css/subscriptions.css'
+
 function Subscriptions() {
     return (
         <>
@@ -8,7 +10,7 @@ function Subscriptions() {
                             {/* <img src="img/tariffs.svg" alt=""/> */}
                             <div class="tariff _alpha">
                                 <svg width="249" height="250" viewBox="0 0 249 250" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <mask id="mask0_501_14461" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="249" height="250">
+                                    <mask id="mask0_501_14461" style={{maskType: 'luminance'}} maskUnits="userSpaceOnUse" x="0" y="0" width="249" height="250">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M0.367188 130.316C64.0311 124.867 114.005 71.4394 114.005 6.3339C114.005 4.45289 113.963 2.58174 113.881 0.721213C117.421 0.41846 121.004 0.263672 124.622 0.263672C193.315 0.263672 249.001 55.977 249.001 124.703C249.001 193.43 193.315 249.143 124.622 249.143C57.8091 249.143 3.30072 196.438 0.367188 130.316Z" fill="#F6F6F6" />
                                     </mask>
                                     <g mask="url(#mask0_501_14461)">

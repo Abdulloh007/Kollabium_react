@@ -7,6 +7,12 @@ export function getFavorites() {
     })
 }
 
+export function getMyFavorites(query) {
+    return axios.get(apis.myFavorites + query, {
+        headers: apiHeader
+    })
+}
+
 export function getAFavorite(id) {
     return axios.get(apis.favorites + id, {
         headers: apiHeader
@@ -26,7 +32,7 @@ export function updateFavorite(body) {
 }
 
 export function deleteAFavorite(id) {
-    return axios.delete(apis.favorites + id, {
+    return axios.delete(apis.favorites + '/' + id, {
         headers: apiHeader
     })
 }

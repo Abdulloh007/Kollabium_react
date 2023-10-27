@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "../../store/posts";
 import { getPosts } from "../../apis/posts";
 import { setAvatar } from "../../store/sidebar";
+import { linkFun } from "../../directive/compresser";
 
 function Feed() {
     const dispatch = useDispatch()
@@ -18,6 +19,7 @@ function Feed() {
     const [news, setNews] = useState([])
     const posts = useSelector((state) => state.posts.posts)
     const [isOpen, setOpenSate] = useState(false)
+    const [isloaded, setIsLoaded] = useState(false)
     const [modalStep, setModalStep] = useState(1)
     const [previewedAvatar, setPreviewedAvatar] = useState('')
 
@@ -34,17 +36,27 @@ function Feed() {
 
     function closeModal() {
         setOpenSate(false)
+        setAvatar('')
+        setModalStep(1)
+        setIsLoaded(false)
+
     }
 
     function previewAvatar(e) {
-        // const avinp = document.querySelector('#avatar_uploader')
         if (e.target.files.length > 0) {
+            linkFun(e)
             setModalStep(2)
-            uploadFile(e.target.files[0]).then(res => {
-                setPreviewedAvatar('https://dev.backend.kollabium.com' + res.data.data.asset)
-            })
+            // uploadFile(e.target.files[0]).then(res => {
+            //     setIsLoaded(true)
+            //     setPreviewedAvatar('https://dev.backend.kollabium.com' + res.data.data.asset)
+            // })
         }
 
+    }
+
+    function activeInp() {
+        const avinp = document.querySelector('#avatar_uploader')
+        avinp.click()
     }
 
     function saveAvtar() {
@@ -402,10 +414,10 @@ function Feed() {
                                                         <div class="text14" dangerouslySetInnerHTML={{ __html: item.content }}></div>
                                                         <div class="news-card__nav">
                                                             <button class="badge _small _btn">
-                                                                <span class="text12">Поздравить</span>
-                                                                <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <span class="text12">Перейти</span>
+                                                                {/* <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <path d="M3.52815 3.69677C3.46413 3.58589 3.37924 3.4885 3.27833 3.41017C3.17741 3.33184 3.06246 3.2741 2.94002 3.24025C2.81758 3.2064 2.69005 3.19709 2.56472 3.21287C2.43939 3.22866 2.31871 3.26921 2.20958 3.33222C2.10044 3.39523 2.00498 3.47946 1.92865 3.58011C1.85232 3.68076 1.79661 3.79585 1.7647 3.91881C1.7328 4.04178 1.72533 4.1702 1.74271 4.29676C1.76009 4.42332 1.80198 4.54553 1.866 4.65641L2.79458 6.26475M3.52815 3.69677L3.06386 2.89261C2.93457 2.66867 2.89813 2.40334 2.96256 2.15501C3.02699 1.90667 3.18702 1.69567 3.40743 1.56841C3.62785 1.44116 3.89059 1.40808 4.13787 1.47644C4.38515 1.54481 4.59671 1.70903 4.726 1.93297L5.19029 2.73714M3.52815 3.69677L5.40165 6.85038M2.79458 6.26475C2.66528 6.0408 2.45373 5.87659 2.20645 5.80822C1.95917 5.73985 1.69642 5.77293 1.476 5.90019C1.25559 6.02745 1.09557 6.23845 1.03113 6.48679C0.966702 6.73512 1.00314 7.00044 1.13243 7.22438L3.66279 11.6071C4.2169 12.5668 5.12357 13.2706 6.18335 13.5636C7.24312 13.8566 8.36918 13.7149 9.31381 13.1695L10.3786 12.5547C11.1133 12.1304 11.6466 11.4271 11.8613 10.5993L12.2391 9.14311C12.4539 8.31539 12.3326 7.43101 11.9017 6.68452L11.2768 5.59852C11.2225 5.50331 11.2077 5.3908 11.2355 5.28569C11.2674 5.16269 11.2749 5.03423 11.2575 4.90764C11.2401 4.78105 11.1982 4.6588 11.1342 4.54789C11.0701 4.43697 10.9852 4.33956 10.8843 4.26121C10.7833 4.18285 10.6683 4.1251 10.5459 4.09124C10.4234 4.05737 10.2958 4.04807 10.1705 4.06386C10.0451 4.07964 9.9244 4.1202 9.81523 4.18323C9.70606 4.24626 9.61058 4.33052 9.53422 4.43119C9.45787 4.53187 9.40215 4.64699 9.37024 4.76999C9.2143 5.3694 9.30083 6.00993 9.61094 6.55172M2.79458 6.26475L4.16422 8.63704M5.19029 2.73714L7.25636 6.31568M5.19029 2.73714C5.061 2.51319 5.02456 2.24787 5.08899 1.99954C5.15342 1.7512 5.31345 1.5402 5.53386 1.41294C5.75427 1.28569 6.01702 1.2526 6.2643 1.32097C6.51158 1.38934 6.72314 1.55356 6.85243 1.7775L10.0792 7.36646M10.0792 7.36646C9.76744 7.54625 9.49477 7.78679 9.27684 8.07428C9.05891 8.36177 8.89999 8.69057 8.8092 9.04183M10.0792 7.36646L10.0803 7.36585" stroke="#F6F6F6" stroke-linecap="round" stroke-linejoin="round" />
-                                                                </svg>
+                                                                </svg> */}
                                                             </button>
                                                         </div>
                                                     </div>
@@ -582,10 +594,7 @@ function Feed() {
                                                             <div class="text16" dangerouslySetInnerHTML={{ __html: item.content }}></div>
                                                             <div class="news-card__nav">
                                                                 <button class="badge anim-btn _small _btn">
-                                                                    <span class="text14">Поздравить</span>
-                                                                    <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M3.52815 3.69677C3.46413 3.58589 3.37924 3.4885 3.27833 3.41017C3.17741 3.33184 3.06246 3.2741 2.94002 3.24025C2.81758 3.2064 2.69005 3.19709 2.56472 3.21287C2.43939 3.22866 2.31871 3.26921 2.20958 3.33222C2.10044 3.39523 2.00498 3.47946 1.92865 3.58011C1.85232 3.68076 1.79661 3.79585 1.7647 3.91881C1.7328 4.04178 1.72533 4.1702 1.74271 4.29676C1.76009 4.42332 1.80198 4.54553 1.866 4.65641L2.79458 6.26475M3.52815 3.69677L3.06386 2.89261C2.93457 2.66867 2.89813 2.40334 2.96256 2.15501C3.02699 1.90667 3.18702 1.69567 3.40743 1.56841C3.62785 1.44116 3.89059 1.40808 4.13787 1.47644C4.38515 1.54481 4.59671 1.70903 4.726 1.93297L5.19029 2.73714M3.52815 3.69677L5.40165 6.85038M2.79458 6.26475C2.66528 6.0408 2.45373 5.87659 2.20645 5.80822C1.95917 5.73985 1.69642 5.77293 1.476 5.90019C1.25559 6.02745 1.09557 6.23845 1.03113 6.48679C0.966702 6.73512 1.00314 7.00044 1.13243 7.22438L3.66279 11.6071C4.2169 12.5668 5.12357 13.2706 6.18335 13.5636C7.24312 13.8566 8.36918 13.7149 9.31381 13.1695L10.3786 12.5547C11.1133 12.1304 11.6466 11.4271 11.8613 10.5993L12.2391 9.14311C12.4539 8.31539 12.3326 7.43101 11.9017 6.68452L11.2768 5.59852C11.2225 5.50331 11.2077 5.3908 11.2355 5.28569C11.2674 5.16269 11.2749 5.03423 11.2575 4.90764C11.2401 4.78105 11.1982 4.6588 11.1342 4.54789C11.0701 4.43697 10.9852 4.33956 10.8843 4.26121C10.7833 4.18285 10.6683 4.1251 10.5459 4.09124C10.4234 4.05737 10.2958 4.04807 10.1705 4.06386C10.0451 4.07964 9.9244 4.1202 9.81523 4.18323C9.70606 4.24626 9.61058 4.33052 9.53422 4.43119C9.45787 4.53187 9.40215 4.64699 9.37024 4.76999C9.2143 5.3694 9.30083 6.00993 9.61094 6.55172M2.79458 6.26475L4.16422 8.63704M5.19029 2.73714L7.25636 6.31568M5.19029 2.73714C5.061 2.51319 5.02456 2.24787 5.08899 1.99954C5.15342 1.7512 5.31345 1.5402 5.53386 1.41294C5.75427 1.28569 6.01702 1.2526 6.2643 1.32097C6.51158 1.38934 6.72314 1.55356 6.85243 1.7775L10.0792 7.36646M10.0792 7.36646C9.76744 7.54625 9.49477 7.78679 9.27684 8.07428C9.05891 8.36177 8.89999 8.69057 8.8092 9.04183M10.0792 7.36646L10.0803 7.36585" stroke="#F6F6F6" stroke-linecap="round" stroke-linejoin="round" />
-                                                                    </svg>
+                                                                    <span class="text14">Перейти</span>
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -899,9 +908,9 @@ function Feed() {
                                             </button>
                                         </div>
                                     </div>
-                                    
+
                                     {posts?.length > 0 ? (<Post data={posts[0]}></Post>) : (<><Shimmer width={'100%'} height={400} /></>)}
-                                    
+
 
                                     <div class="posts">
                                         <div class="text24 font2">
@@ -1323,7 +1332,7 @@ function Feed() {
                                     <div class="info__inner">
                                         <div class="info__top">
                                             <div class="text24 font2">
-                                                Запросы в друзья
+                                                На вас подписались
                                             </div>
                                             <div class="chat-item__count">
                                                 <span class="text16 text10-mob font2">
@@ -1603,11 +1612,11 @@ function Feed() {
                                     <div class="text32 font2">
                                         Загрузите ваш аватар
                                     </div>
-                                    <div class="text16 lh150">
+                                    {/* <div class="text16 lh150">
                                         Ваш задний фон на фотографии будет удалён. Наши нейросети сделают это быстрее, чем вы в Фотошопе, поэтому можете не волноваться.
-                                    </div>
+                                    </div> */}
                                     <div class="modal__nav">
-                                        <button class="modal__btn m-btn m-btn-purple">
+                                        <button onClick={() => activeInp()} class="modal__btn m-btn m-btn-purple">
                                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M3 17V19.25C3 19.8467 3.23705 20.419 3.65901 20.841C4.08097 21.2629 4.65326 21.5 5.25 21.5H18.75C19.3467 21.5 19.919 21.2629 20.341 20.841C20.7629 20.419 21 19.8467 21 19.25V17M16.5 12.5L12 17M12 17L7.5 12.5M12 17V3.5" stroke="#F6F6F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
@@ -1620,7 +1629,14 @@ function Feed() {
                         ) : modalStep == 2 ? (
                             <div class="modal__inner">
                                 <div class="img-input">
-                                    <img src={previewedAvatar} alt=""/>
+                                    {previewedAvatar != ''
+                                        ? (
+                                            <img src={previewedAvatar} alt="" />
+                                        )
+                                        : (
+                                            <Shimmer width={'100%'} height={400} />
+                                        )
+                                    }
                                 </div>
                                 <div class="modal__info _big">
                                     <div class="text32 font2">
@@ -1630,7 +1646,7 @@ function Feed() {
                                         Мы как и обещали обработали вашу фотографию и убрали задний, даже немного её улучшили в качестве, чтобы вы не могли себя узнать. Сохранем
                                     </div>
                                     <div class="modal__nav">
-                                        <button class="modal__btn m-btn m-btn-purple" onClick={() => saveAvtar()}>
+                                        <button disabled={!isloaded} class="modal__btn m-btn m-btn-purple" onClick={() => saveAvtar()}>
                                             <span>Сохранить</span>
                                             <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M9.5 12.75L11.75 15L15.5 9.75M21.5 12C21.5 13.1819 21.2672 14.3522 20.8149 15.4442C20.3626 16.5361 19.6997 17.5282 18.864 18.364C18.0282 19.1997 17.0361 19.8626 15.9442 20.3149C14.8522 20.7672 13.6819 21 12.5 21C11.3181 21 10.1478 20.7672 9.05585 20.3149C7.96392 19.8626 6.97177 19.1997 6.13604 18.364C5.30031 17.5282 4.63738 16.5361 4.18508 15.4442C3.73279 14.3522 3.5 13.1819 3.5 12C3.5 9.61305 4.44821 7.32387 6.13604 5.63604C7.82387 3.94821 10.1131 3 12.5 3C14.8869 3 17.1761 3.94821 18.864 5.63604C20.5518 7.32387 21.5 9.61305 21.5 12Z" stroke="#F6F6F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

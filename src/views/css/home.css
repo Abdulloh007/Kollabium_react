@@ -29,7 +29,8 @@
     padding: 10px 0;
 }
 
-.fcl-item input, .fcl-item p {
+.fcl-item input,
+.fcl-item p {
     border: none;
     background: transparent;
     width: calc(100% - 50px);
@@ -53,4 +54,28 @@
 
 a.wallet:hover {
     color: #fff;
+}
+
+
+/* Feed  */
+.user-main__img {
+    height: 100%;
+}
+
+.user-main img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.user-main {
+    height: 55em;
+}
+
+@media screen and (max-width: 1600px) and (min-width: 576px) {
+    .user-main {
+        width: 36em;
+        height: 36em;
+    }
 }

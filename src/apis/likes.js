@@ -13,6 +13,12 @@ export function getALike(id) {
     })
 }
 
+export function getMyLike(query) {
+    return axios.get(apis.myLikes + query, {
+        headers: apiHeader
+    })
+}
+
 export function createLike(body) {
     return axios.post(apis.likes, body, {
         headers: apiHeader

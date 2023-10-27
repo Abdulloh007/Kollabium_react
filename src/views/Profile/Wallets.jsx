@@ -128,7 +128,7 @@ function Wallets() {
                                             <span>Token Name</span>
                                         </div>
                                         <div class="wallet__sum">
-                                            <span>12,500 USD</span>
+                                            <span>0 USD</span>
                                         </div>
                                         <div class="effect-1"></div>
                                         <div class="effect-2"></div>
@@ -144,7 +144,7 @@ function Wallets() {
                                             <span>Token Name</span>
                                         </div>
                                         <div class="wallet__sum">
-                                            <span>1,400 USD</span>
+                                            <span>0 USD</span>
                                         </div>
                                         <div class="effect-1"></div>
                                         <div class="effect-2"></div>
@@ -168,13 +168,13 @@ function Wallets() {
                                     </div>
                                     <div class="wallet-stat__bottom">
                                         <div class="wallet-stat__price">
-                                            <span class="text16">$</span><span class="text24 bold-text">53,440</span>
+                                            <span class="text16">$</span><span class="text24 bold-text">0</span>
                                         </div>
                                         <div class="wallet-stat__progress">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M3 10L8 5L13 10" stroke="#009F85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
-                                            <span class="text16">+2.1%</span>
+                                            <span class="text16">+0%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -184,13 +184,13 @@ function Wallets() {
                                     </div>
                                     <div class="wallet-stat__bottom">
                                         <div class="wallet-stat__price">
-                                            <span class="text16">$</span><span class="text24 bold-text">4,543</span>
+                                            <span class="text16">$</span><span class="text24 bold-text">0</span>
                                         </div>
                                         <div class="wallet-stat__progress _red">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M13 5L8 10L3 5" stroke="#FF4040" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
-                                            <span class="text16">-6%</span>
+                                            <span class="text16">-0%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -200,13 +200,13 @@ function Wallets() {
                                     </div>
                                     <div class="wallet-stat__bottom">
                                         <div class="wallet-stat__price">
-                                            <span class="text24 bold-text">4150</span>
+                                            <span class="text24 bold-text">0</span>
                                         </div>
                                         <div class="wallet-stat__progress">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M3 10L8 5L13 10" stroke="#009F85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
-                                            <span class="text16">+34</span>
+                                            <span class="text16">+0</span>
                                         </div>
                                     </div>
                                 </div>
@@ -216,13 +216,13 @@ function Wallets() {
                                     </div>
                                     <div class="wallet-stat__bottom">
                                         <div class="wallet-stat__price">
-                                            <span class="text16">$</span><span class="text24 bold-text">77,373</span>
+                                            <span class="text16">$</span><span class="text24 bold-text">0</span>
                                         </div>
                                         <div class="wallet-stat__progress _red">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M13 5L8 10L3 5" stroke="#FF4040" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
-                                            <span class="text16">-6%</span>
+                                            <span class="text16">-0%</span>
                                         </div>
                                     </div>
                                 </div>

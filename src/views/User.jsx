@@ -25,7 +25,7 @@ function User() {
                                         <div class="relevant__items">
                                             <div class="relevant-card">
                                                 <div class="avatar">
-                                                    <img src="img/avatar7.webp" alt=""/>
+                                                    <img src="img/avatar7.webp" alt="" />
                                                 </div>
                                                 <div class="relevant-card__content">
                                                     <div class="relevant-card__top">
@@ -133,7 +133,7 @@ function User() {
 
                                 <div class="user-main">
                                     <div class="user-main__img">
-                                        <img src={userInfo.avatar} alt=""/>
+                                        <img src={userInfo.user_information?.profile_photo?.value ? userInfo.user_information?.profile_photo?.value : userInfo.avatar} alt="" />
                                     </div>
                                 </div>
 
@@ -145,7 +145,7 @@ function User() {
                                         <div class="news__items">
                                             <div class="news-card">
                                                 <div class="avatar">
-                                                    <img src="img/avatar6.webp" alt=""/>
+                                                    <img src="img/avatar6.webp" alt="" />
                                                 </div>
                                                 <div class="news-card__content">
                                                     <div class="text16 font2">
@@ -166,7 +166,7 @@ function User() {
                                             </div>
                                             <div class="news-card">
                                                 <div class="avatar">
-                                                    <img src="img/avatar7.webp" alt=""/>
+                                                    <img src="img/avatar7.webp" alt="" />
                                                 </div>
                                                 <div class="news-card__content">
                                                     <div class="text16 font2">
@@ -192,7 +192,7 @@ function User() {
                                             </div>
                                             <div class="news-card">
                                                 <div class="avatar">
-                                                    <img src="img/avatar8.webp" alt=""/>
+                                                    <img src="img/avatar8.webp" alt="" />
                                                 </div>
                                                 <div class="news-card__content">
                                                     <div class="text16 font2">
@@ -240,29 +240,33 @@ function User() {
                                                 </div>
                                             </div>
                                             <div class="text40 font2">
-                                            {userInfo.user_information?.first_name.value}  {userInfo.user_information?.last_name?.value}
+                                                {userInfo.user_information?.first_name?.value}  {userInfo.user_information?.last_name?.value}
                                             </div>
                                             <div class="user__socials">
-                                                <a href={userInfo.user_information?.tg_link?.value} class="user__social">
-                                                    <span class="user__social-btn m-btn m-btn-white round-btn">
-                                                        <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M4.91725 10.492L0.400472 8.88629C0.400472 8.88629 -0.139333 8.64734 0.0344845 8.1055C0.0702658 7.99377 0.142445 7.8987 0.358367 7.7353C1.35916 6.9742 18.8823 0.102439 18.8823 0.102439C18.8823 0.102439 19.3771 -0.0794642 19.6689 0.0415241C19.7411 0.0659047 19.806 0.110769 19.8571 0.171528C19.9082 0.232286 19.9435 0.306757 19.9596 0.387325C19.9911 0.529628 20.0043 0.676034 19.9988 0.822311C19.9974 0.948852 19.9833 1.06614 19.9727 1.25006C19.866 3.12883 16.6722 17.1507 16.6722 17.1507C16.6722 17.1507 16.4811 17.9712 15.7965 17.9993C15.6282 18.0052 15.4606 17.9741 15.3036 17.9079C15.1466 17.8416 15.0034 17.7415 14.8827 17.6136C13.5392 16.3527 8.89561 12.9479 7.86951 12.1991C7.84637 12.1819 7.82688 12.1595 7.81235 12.1333C7.79782 12.1072 7.7886 12.078 7.78531 12.0476C7.77096 11.9687 7.84962 11.8709 7.84962 11.8709C7.84962 11.8709 15.9353 4.02943 16.1504 3.20623C16.1671 3.14246 16.1042 3.11099 16.0196 3.13893C15.4826 3.35448 6.17299 9.76888 5.14551 10.4768C5.07155 10.5012 4.99337 10.5064 4.91725 10.492Z" fill="#795AA0" />
-                                                        </svg>
-                                                    </span>
-                                                    <span class="text16">Telegram</span>
-                                                </a>
-                                                <a href={userInfo.user_information?.ig_link?.value} class="user__social">
-                                                    <span class="user__social-btn m-btn m-btn-white round-btn">
-                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M10.0009 0C7.28508 0 6.94424 0.0118752 5.87756 0.0604169C4.81297 0.109167 4.08629 0.277708 3.45045 0.525C2.79274 0.780417 2.23481 1.12208 1.67898 1.67813C1.12272 2.23396 0.78105 2.79187 0.524797 3.44937C0.276878 4.08542 0.108126 4.81229 0.0602089 5.87646C0.0125 6.94312 0 7.28417 0 10C0 12.7158 0.0120837 13.0556 0.0604175 14.1223C0.109376 15.1869 0.27792 15.9135 0.525006 16.5494C0.780633 17.2071 1.1223 17.765 1.67835 18.3208C2.23398 18.8771 2.7919 19.2196 3.4492 19.475C4.08546 19.7223 4.81234 19.8908 5.87673 19.9396C6.94341 19.9881 7.28403 20 9.99969 20C12.7158 20 13.0556 19.9881 14.1222 19.9396C15.1868 19.8908 15.9143 19.7223 16.5506 19.475C17.2081 19.2196 17.7652 18.8771 18.3208 18.3208C18.8771 17.765 19.2187 17.2071 19.475 16.5496C19.7208 15.9135 19.8896 15.1867 19.9396 14.1225C19.9875 13.0558 20 12.7158 20 10C20 7.28417 19.9875 6.94333 19.9396 5.87667C19.8896 4.81208 19.7208 4.08542 19.475 3.44958C19.2187 2.79187 18.8771 2.23396 18.3208 1.67813C17.7646 1.12188 17.2083 0.780208 16.55 0.525C15.9125 0.277708 15.1854 0.109167 14.1208 0.0604169C13.0541 0.0118752 12.7145 0 9.99781 0H10.0009ZM9.10385 1.80208C9.3701 1.80167 9.66718 1.80208 10.0009 1.80208C12.671 1.80208 12.9874 1.81167 14.0418 1.85958C15.0168 1.90417 15.546 2.06708 15.8985 2.20396C16.3652 2.38521 16.6979 2.60187 17.0477 2.95187C17.3977 3.30187 17.6143 3.63521 17.796 4.10187C17.9329 4.45396 18.096 4.98312 18.1404 5.95812C18.1883 7.01229 18.1987 7.32896 18.1987 9.99771C18.1987 12.6665 18.1883 12.9831 18.1404 14.0373C18.0958 15.0123 17.9329 15.5415 17.796 15.8935C17.6148 16.3602 17.3977 16.6925 17.0477 17.0423C16.6977 17.3923 16.3654 17.609 15.8985 17.7902C15.5464 17.9277 15.0168 18.0902 14.0418 18.1348C12.9876 18.1827 12.671 18.1931 10.0009 18.1931C7.3307 18.1931 7.01424 18.1827 5.96006 18.1348C4.98505 18.0898 4.45588 17.9269 4.10317 17.79C3.6365 17.6087 3.30316 17.3921 2.95316 17.0421C2.60315 16.6921 2.38648 16.3596 2.20481 15.8927C2.06794 15.5406 1.90481 15.0115 1.86044 14.0365C1.81252 12.9823 1.80294 12.6656 1.80294 9.99521C1.80294 7.32479 1.81252 7.00979 1.86044 5.95563C1.90502 4.98063 2.06794 4.45146 2.20481 4.09896C2.38607 3.63229 2.60315 3.29896 2.95316 2.94896C3.30316 2.59896 3.6365 2.38229 4.10317 2.20062C4.45567 2.06312 4.98505 1.90063 5.96006 1.85583C6.88257 1.81417 7.24008 1.80167 9.10385 1.79958V1.80208ZM15.3389 3.4625C14.6764 3.4625 14.1389 3.99937 14.1389 4.66208C14.1389 5.32458 14.6764 5.86208 15.3389 5.86208C16.0014 5.86208 16.5389 5.32458 16.5389 4.66208C16.5389 3.99958 16.0014 3.46208 15.3389 3.46208V3.4625ZM10.0009 4.86458C7.16487 4.86458 4.86547 7.16396 4.86547 10C4.86547 12.836 7.16487 15.1344 10.0009 15.1344C12.837 15.1344 15.1356 12.836 15.1356 10C15.1356 7.16396 12.837 4.86458 10.0009 4.86458ZM10.0009 6.66667C11.8418 6.66667 13.3343 8.15896 13.3343 10C13.3343 11.8408 11.8418 13.3333 10.0009 13.3333C8.15988 13.3333 6.66757 11.8408 6.66757 10C6.66757 8.15896 8.15988 6.66667 10.0009 6.66667Z" fill="#795AA0" />
-                                                        </svg>
-                                                    </span>
-                                                    <span class="text16">Instagram</span>
-                                                </a>
+                                                {userInfo.user_information?.tg_link ? (
+                                                    <a href={userInfo.user_information?.tg_link?.value} class="user__social">
+                                                        <span class="user__social-btn m-btn m-btn-white round-btn">
+                                                            <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M4.91725 10.492L0.400472 8.88629C0.400472 8.88629 -0.139333 8.64734 0.0344845 8.1055C0.0702658 7.99377 0.142445 7.8987 0.358367 7.7353C1.35916 6.9742 18.8823 0.102439 18.8823 0.102439C18.8823 0.102439 19.3771 -0.0794642 19.6689 0.0415241C19.7411 0.0659047 19.806 0.110769 19.8571 0.171528C19.9082 0.232286 19.9435 0.306757 19.9596 0.387325C19.9911 0.529628 20.0043 0.676034 19.9988 0.822311C19.9974 0.948852 19.9833 1.06614 19.9727 1.25006C19.866 3.12883 16.6722 17.1507 16.6722 17.1507C16.6722 17.1507 16.4811 17.9712 15.7965 17.9993C15.6282 18.0052 15.4606 17.9741 15.3036 17.9079C15.1466 17.8416 15.0034 17.7415 14.8827 17.6136C13.5392 16.3527 8.89561 12.9479 7.86951 12.1991C7.84637 12.1819 7.82688 12.1595 7.81235 12.1333C7.79782 12.1072 7.7886 12.078 7.78531 12.0476C7.77096 11.9687 7.84962 11.8709 7.84962 11.8709C7.84962 11.8709 15.9353 4.02943 16.1504 3.20623C16.1671 3.14246 16.1042 3.11099 16.0196 3.13893C15.4826 3.35448 6.17299 9.76888 5.14551 10.4768C5.07155 10.5012 4.99337 10.5064 4.91725 10.492Z" fill="#795AA0" />
+                                                            </svg>
+                                                        </span>
+                                                        <span class="text16">Telegram</span>
+                                                    </a>
+                                                ) : (<></>)}
+                                                {userInfo.user_information?.ig_link ? (
+                                                    <a href={userInfo.user_information?.ig_link?.value} class="user__social">
+                                                        <span class="user__social-btn m-btn m-btn-white round-btn">
+                                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M10.0009 0C7.28508 0 6.94424 0.0118752 5.87756 0.0604169C4.81297 0.109167 4.08629 0.277708 3.45045 0.525C2.79274 0.780417 2.23481 1.12208 1.67898 1.67813C1.12272 2.23396 0.78105 2.79187 0.524797 3.44937C0.276878 4.08542 0.108126 4.81229 0.0602089 5.87646C0.0125 6.94312 0 7.28417 0 10C0 12.7158 0.0120837 13.0556 0.0604175 14.1223C0.109376 15.1869 0.27792 15.9135 0.525006 16.5494C0.780633 17.2071 1.1223 17.765 1.67835 18.3208C2.23398 18.8771 2.7919 19.2196 3.4492 19.475C4.08546 19.7223 4.81234 19.8908 5.87673 19.9396C6.94341 19.9881 7.28403 20 9.99969 20C12.7158 20 13.0556 19.9881 14.1222 19.9396C15.1868 19.8908 15.9143 19.7223 16.5506 19.475C17.2081 19.2196 17.7652 18.8771 18.3208 18.3208C18.8771 17.765 19.2187 17.2071 19.475 16.5496C19.7208 15.9135 19.8896 15.1867 19.9396 14.1225C19.9875 13.0558 20 12.7158 20 10C20 7.28417 19.9875 6.94333 19.9396 5.87667C19.8896 4.81208 19.7208 4.08542 19.475 3.44958C19.2187 2.79187 18.8771 2.23396 18.3208 1.67813C17.7646 1.12188 17.2083 0.780208 16.55 0.525C15.9125 0.277708 15.1854 0.109167 14.1208 0.0604169C13.0541 0.0118752 12.7145 0 9.99781 0H10.0009ZM9.10385 1.80208C9.3701 1.80167 9.66718 1.80208 10.0009 1.80208C12.671 1.80208 12.9874 1.81167 14.0418 1.85958C15.0168 1.90417 15.546 2.06708 15.8985 2.20396C16.3652 2.38521 16.6979 2.60187 17.0477 2.95187C17.3977 3.30187 17.6143 3.63521 17.796 4.10187C17.9329 4.45396 18.096 4.98312 18.1404 5.95812C18.1883 7.01229 18.1987 7.32896 18.1987 9.99771C18.1987 12.6665 18.1883 12.9831 18.1404 14.0373C18.0958 15.0123 17.9329 15.5415 17.796 15.8935C17.6148 16.3602 17.3977 16.6925 17.0477 17.0423C16.6977 17.3923 16.3654 17.609 15.8985 17.7902C15.5464 17.9277 15.0168 18.0902 14.0418 18.1348C12.9876 18.1827 12.671 18.1931 10.0009 18.1931C7.3307 18.1931 7.01424 18.1827 5.96006 18.1348C4.98505 18.0898 4.45588 17.9269 4.10317 17.79C3.6365 17.6087 3.30316 17.3921 2.95316 17.0421C2.60315 16.6921 2.38648 16.3596 2.20481 15.8927C2.06794 15.5406 1.90481 15.0115 1.86044 14.0365C1.81252 12.9823 1.80294 12.6656 1.80294 9.99521C1.80294 7.32479 1.81252 7.00979 1.86044 5.95563C1.90502 4.98063 2.06794 4.45146 2.20481 4.09896C2.38607 3.63229 2.60315 3.29896 2.95316 2.94896C3.30316 2.59896 3.6365 2.38229 4.10317 2.20062C4.45567 2.06312 4.98505 1.90063 5.96006 1.85583C6.88257 1.81417 7.24008 1.80167 9.10385 1.79958V1.80208ZM15.3389 3.4625C14.6764 3.4625 14.1389 3.99937 14.1389 4.66208C14.1389 5.32458 14.6764 5.86208 15.3389 5.86208C16.0014 5.86208 16.5389 5.32458 16.5389 4.66208C16.5389 3.99958 16.0014 3.46208 15.3389 3.46208V3.4625ZM10.0009 4.86458C7.16487 4.86458 4.86547 7.16396 4.86547 10C4.86547 12.836 7.16487 15.1344 10.0009 15.1344C12.837 15.1344 15.1356 12.836 15.1356 10C15.1356 7.16396 12.837 4.86458 10.0009 4.86458ZM10.0009 6.66667C11.8418 6.66667 13.3343 8.15896 13.3343 10C13.3343 11.8408 11.8418 13.3333 10.0009 13.3333C8.15988 13.3333 6.66757 11.8408 6.66757 10C6.66757 8.15896 8.15988 6.66667 10.0009 6.66667Z" fill="#795AA0" />
+                                                            </svg>
+                                                        </span>
+                                                        <span class="text16">Instagram</span>
+                                                    </a>
+                                                ) : (<></>)}
                                             </div>
                                             <div class="user__text">
                                                 <div class="text16 lh150">
-                                                {userInfo.user_information?.about_me?.value}
+                                                    {userInfo.user_information?.about_me?.value}
                                                 </div>
                                             </div>
                                         </div>
@@ -603,7 +607,7 @@ function User() {
                                     <div class="info__posts">
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post.webp" alt=""/>
+                                                <img src="img/post.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -640,7 +644,7 @@ function User() {
 
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post2.webp" alt=""/>
+                                                <img src="img/post2.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -677,7 +681,7 @@ function User() {
 
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post3.webp" alt=""/>
+                                                <img src="img/post3.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -714,7 +718,7 @@ function User() {
 
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post2.webp" alt=""/>
+                                                <img src="img/post2.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -751,7 +755,7 @@ function User() {
 
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post3.webp" alt=""/>
+                                                <img src="img/post3.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -809,7 +813,7 @@ function User() {
                                     <div class="info__posts">
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post.webp" alt=""/>
+                                                <img src="img/post.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -846,7 +850,7 @@ function User() {
 
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post2.webp" alt=""/>
+                                                <img src="img/post2.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -883,7 +887,7 @@ function User() {
 
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post3.webp" alt=""/>
+                                                <img src="img/post3.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -920,7 +924,7 @@ function User() {
 
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post2.webp" alt=""/>
+                                                <img src="img/post2.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -957,7 +961,7 @@ function User() {
 
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post3.webp" alt=""/>
+                                                <img src="img/post3.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -1015,7 +1019,7 @@ function User() {
                                     <div class="info__posts">
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post.webp" alt=""/>
+                                                <img src="img/post.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -1052,7 +1056,7 @@ function User() {
 
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post2.webp" alt=""/>
+                                                <img src="img/post2.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -1089,7 +1093,7 @@ function User() {
 
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post3.webp" alt=""/>
+                                                <img src="img/post3.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -1126,7 +1130,7 @@ function User() {
 
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post2.webp" alt=""/>
+                                                <img src="img/post2.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -1163,7 +1167,7 @@ function User() {
 
                                         <div class="post-card">
                                             <div class="post-card__img">
-                                                <img src="img/post3.webp" alt=""/>
+                                                <img src="img/post3.webp" alt="" />
                                             </div>
                                             <div class="post-card__content">
                                                 <div class="text18 font2">
@@ -1230,7 +1234,7 @@ function User() {
                                             </div>
                                         </div>
                                         <div class="progressbar">
-                                            <span style={{width: '67%'}}></span>
+                                            <span style={{ width: '67%' }}></span>
                                         </div>
                                     </div>
                                     <div class="test-progress">
@@ -1243,7 +1247,7 @@ function User() {
                                             </div>
                                         </div>
                                         <div class="progressbar">
-                                            <span style={{width: '90%'}}></span>
+                                            <span style={{ width: '90%' }}></span>
                                         </div>
                                     </div>
                                     <div class="test-progress">
@@ -1256,7 +1260,7 @@ function User() {
                                             </div>
                                         </div>
                                         <div class="progressbar">
-                                            <span style={{width: '25%'}}></span>
+                                            <span style={{ width: '25%' }}></span>
                                         </div>
                                     </div>
                                     <div class="test-progress">
@@ -1269,7 +1273,7 @@ function User() {
                                             </div>
                                         </div>
                                         <div class="progressbar">
-                                            <span style={{width: '25%'}}></span>
+                                            <span style={{ width: '25%' }}></span>
                                         </div>
                                     </div>
                                     <div class="test-progress">
@@ -1282,7 +1286,7 @@ function User() {
                                             </div>
                                         </div>
                                         <div class="progressbar">
-                                            <span style={{width: '75%'}}></span>
+                                            <span style={{ width: '75%' }}></span>
                                         </div>
                                     </div>
                                     <div class="test-progress">
@@ -1295,7 +1299,7 @@ function User() {
                                             </div>
                                         </div>
                                         <div class="progressbar">
-                                            <span style={{width: '67%'}}></span>
+                                            <span style={{ width: '67%' }}></span>
                                         </div>
                                     </div>
                                 </div>
@@ -1307,14 +1311,14 @@ function User() {
                                     </div>
                                 </div>
                                 <div class="psycho-portrait__chart">
-                                    <img src="img/chart.svg" alt=""/>
+                                    <img src="img/chart.svg" alt="" />
                                 </div>
                                 <div class="psycho-portrait__items">
                                     <div class="psycho-item">
                                         <div class="psycho-item__top">
-                                            <i style={{backgroundColor: "#17FF58"}}></i>
+                                            <i style={{ backgroundColor: "#17FF58" }}></i>
                                             <div class="font2 text16 lh150">
-                                                Отношение к <span style={{color: "#17FF58"}}>Р</span>иску
+                                                Отношение к <span style={{ color: "#17FF58" }}>Р</span>иску
                                             </div>
                                         </div>
                                         <div class="psycho-item__text">
@@ -1325,9 +1329,9 @@ function User() {
                                     </div>
                                     <div class="psycho-item">
                                         <div class="psycho-item__top">
-                                            <i style={{backgroundColor: "#FFC208;"}}></i>
+                                            <i style={{ backgroundColor: "#FFC208;" }}></i>
                                             <div class="font2 text16 lh150">
-                                                Отношение к <span style={{color: "#FFC208;"}}>Ж</span>изни
+                                                Отношение к <span style={{ color: "#FFC208;" }}>Ж</span>изни
                                             </div>
                                         </div>
                                         <div class="psycho-item__text">
@@ -1338,9 +1342,9 @@ function User() {
                                     </div>
                                     <div class="psycho-item">
                                         <div class="psycho-item__top">
-                                            <i style={{backgroundColor: "#FF1717;"}}></i>
+                                            <i style={{ backgroundColor: "#FF1717;" }}></i>
                                             <div class="font2 text16 lh150">
-                                                Отношение к <span style={{color: "#FF1717;"}}>М</span>ечтам
+                                                Отношение к <span style={{ color: "#FF1717;" }}>М</span>ечтам
                                             </div>
                                         </div>
                                         <div class="psycho-item__text">
@@ -1351,9 +1355,9 @@ function User() {
                                     </div>
                                     <div class="psycho-item">
                                         <div class="psycho-item__top">
-                                            <i style={{backgroundColor: "#A244FF"}}></i>
+                                            <i style={{ backgroundColor: "#A244FF" }}></i>
                                             <div class="font2 text16 lh150">
-                                                Отношение к <span style={{color: "#A244FF"}}>К</span>онфликтам
+                                                Отношение к <span style={{ color: "#A244FF" }}>К</span>онфликтам
                                             </div>
                                         </div>
                                         <div class="psycho-item__text">
@@ -1364,9 +1368,9 @@ function User() {
                                     </div>
                                     <div class="psycho-item">
                                         <div class="psycho-item__top">
-                                            <i style={{backgroundColor: "#5D3EFE"}}></i>
+                                            <i style={{ backgroundColor: "#5D3EFE" }}></i>
                                             <div class="font2 text16 lh150">
-                                                Отношение к <span style={{color: "#5D3EFE"}}>П</span>еремена
+                                                Отношение к <span style={{ color: "#5D3EFE" }}>П</span>еремена
                                             </div>
                                         </div>
                                         <div class="psycho-item__text">

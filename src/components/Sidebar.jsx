@@ -21,14 +21,14 @@ function Sidebar(props) {
         <>
             <div className="menu _expanded1 _extra1" >
                 <div class="menu__top">
-                    <div class="menu__user">
-                        <Link to="/feed" class="avatar">
+                    <Link to="/feed" class="menu__user">
+                        <div class="avatar">
                             <img src={avatar} alt="" />
-                        </Link>
+                        </div>
                         <span class="text24 medium-text">
                             {name}
                         </span>
-                    </div>
+                    </Link>
                     <div class="menu__buttons">
                         <button class="menu__close menu__btn m-btn m-btn-pink" onClick={() => dispatch(toggle('pol'))}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +65,7 @@ function Sidebar(props) {
                         </svg>
                         <span>Актуальное</span>
                     </Link>
-                    <Link onClick={() => dispatch(toggle())} to="/" class="menu__link">
+                    <Link onClick={() => dispatch(toggle())} to="/favorite" class="menu__link">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M17.593 3.32157C18.693 3.44957 19.5 4.39857 19.5 5.50657V20.9996L12 17.2496L4.5 20.9996V5.50657C4.5 4.39857 5.306 3.44957 6.407 3.32157C10.1232 2.89021 13.8768 2.89021 17.593 3.32157Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>

@@ -20,6 +20,15 @@ export function updatePersonalInformationil(body, token) {
     })
 }
 
+export function updatePInfo(body, token) {
+    return axios.patch(apis.settings, body, {
+        headers: token ? {
+            'Authorization': 'Bearer ' + token,
+            "Content-Type": "application/json"
+        } : {...apiHeader, "Content-Type": "application/json"}
+    })
+}
+
 export function getMe(token) {
     return axios.get(apis.me+'?with_user_information=1', {
         headers: token ? {'Authorization': 'Bearer ' + token} : apiHeader

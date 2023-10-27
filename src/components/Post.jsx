@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import { Image, Shimmer } from 'react-shimmer';
-import { createLike, deleteALike } from "../apis/likes";
-import { createFavorite } from "../apis/favorites";
+import { createLike, deleteALike, getALike, getMyLike } from "../apis/likes";
+import { createFavorite, deleteAFavorite, getMyFavorites } from "../apis/favorites";
 import { createComment, deleteAComment, getComments, updateComment } from "../apis/comments";
 import { useDispatch } from "react-redux";
 import { setPost } from "../store/posts";
@@ -19,11 +19,20 @@ function Post(props) {
         setMyId(localStorage.getItem(btoa('id')))
     }, [])
 
+    function dislikePost(id) {
+        getMyLike('?target=post&target_id=' + id).then(res => {
+            deleteALike(res.data.data[0].id).then(resL2 => {
+                getPosts().then(resL3 => dispatch(setPost(resL3.data.data)))
+            }).catch(error => console.log(error))
+        })
+            .catch(error => console.log('Some thing goes wrong!' + error.response.data.message))
+        // .catch(error => deleteALike(id).then(res => setPosts(res.data.data)))
+    }
     function likePost(id) {
         createLike({
             target: 'post',
             target_id: id
-        }).then(res => dispatch(setPost()))
+        }).then(res => getPosts().then(res => dispatch(setPost(res.data.data))))
             .catch(error => console.log('Some thing goes wrong!' + error.response.data.message))
         // .catch(error => deleteALike(id).then(res => setPosts(res.data.data)))
     }
@@ -33,6 +42,15 @@ function Post(props) {
             target: 'post',
             target_id: id
         }).then(res => getPosts().then(res => dispatch(setPost(res.data.data))))
+            .catch(error => console.log('Some thing goes wrong!' + error.response.data.message))
+    }
+
+    function disFavorPost(id) {
+        getMyFavorites('?target=post&target_id=' + id).then(res => {
+            deleteAFavorite(res.data.data[0].id).then(resL2 => {
+                getPosts().then(resL3 => dispatch(setPost(resL3.data.data)))
+            }).catch(error => console.log(error))
+        })
             .catch(error => console.log('Some thing goes wrong!' + error.response.data.message))
     }
 
@@ -106,24 +124,49 @@ function Post(props) {
                     </div>
                 </div>
                 <div class="feed-item__action">
-                    <button class="feed-item__btn anim-btn" onClick={() => likePost(props.data?.id)}>
-                        <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M32 7.90909C32 3.54152 28.2684 0 23.6658 0C20.2258 0 17.2711 1.97903 16 4.80345C14.7289 1.97903 11.7742 0 8.33244 0C3.73333 0 0 3.54152 0 7.90909C0 20.5988 16 29 16 29C16 29 32 20.5988 32 7.90909Z" fill="#795AA0" />
-                        </svg>
-                        <span class="feed-item__btn-num">{props.data?.likes_count}</span>
-                    </button>
-                    <button class="feed-item__btn anim-btn _comments" onClick={() => commentPost(props.data?.id)}>
+                    {props.data?.my_like
+                        ? (
+                            <button class="feed-item__btn anim-btn" onClick={() => dislikePost(props.data?.id)}>
+                                <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M32 7.90909C32 3.54152 28.2684 0 23.6658 0C20.2258 0 17.2711 1.97903 16 4.80345C14.7289 1.97903 11.7742 0 8.33244 0C3.73333 0 0 3.54152 0 7.90909C0 20.5988 16 29 16 29C16 29 32 20.5988 32 7.90909Z" fill="#795AA0" />
+                                </svg>
+                                <span class="feed-item__btn-num">{props.data?.likes_count}</span>
+                            </button>
+                        )
+                        : (
+                            <button class="feed-item__btn anim-btn" onClick={() => likePost(props.data?.id)}>
+                                <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M32 7.90909C32 3.54152 28.2684 0 23.6658 0C20.2258 0 17.2711 1.97903 16 4.80345C14.7289 1.97903 11.7742 0 8.33244 0C3.73333 0 0 3.54152 0 7.90909C0 20.5988 16 29 16 29C16 29 32 20.5988 32 7.90909Z" stroke="#795AA0" />
+                                </svg>
+                                <span class="feed-item__btn-num">{props.data?.likes_count}</span>
+                            </button>
+                        )
+                    }
+                    <button class="feed-item__btn anim-btn _comments" onClick={() => getPostComment(props.data?.id)}>
                         <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M21 39.2609C32.0444 39.2609 41 30.6951 41 20.1304C41 9.56579 32.0444 1 21 1C9.95556 1 1 9.56579 1 20.1304C1 25.0093 2.90889 29.4591 6.05111 32.8377C7.01111 33.8742 7.69556 35.2493 7.35333 36.6429C6.9786 38.1668 6.27728 39.582 5.30222 40.782C6.08254 40.9283 6.87386 41.0012 7.66667 41C10.5156 41 13.1556 40.0678 15.3222 38.4794C17.1222 38.9896 19.0289 39.2609 21 39.2609Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         <span class="feed-item__btn-num">{props.data?.comments_count}</span>
                     </button>
-                    <button class="feed-item__btn anim-btn _saves" onClick={() => favorPost(props.data?.id)}>
-                        <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M25.4403 1.68294C27.4936 1.95314 29 3.95641 29 6.29532V39L15 31.084L1 39V6.29532C1 3.95641 2.50453 1.95314 4.55973 1.68294C11.4966 0.772355 18.5034 0.772355 25.4403 1.68294Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <span class="feed-item__btn-num">{props.data?.favorites_count}</span>
-                    </button>
+                    {props.data?.my_favorites
+                        ? (
+                            <button class="feed-item__btn anim-btn _saves" onClick={() => disFavorPost(props.data?.id)}>
+                                <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M25.4403 1.68294C27.4936 1.95314 29 3.95641 29 6.29532V39L15 31.084L1 39V6.29532C1 3.95641 2.50453 1.95314 4.55973 1.68294C11.4966 0.772355 18.5034 0.772355 25.4403 1.68294Z" fill="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span class="feed-item__btn-num">{props.data?.favorites_count}</span>
+                            </button>
+                        )
+                        : (
+                            <button class="feed-item__btn anim-btn _saves" onClick={() => favorPost(props.data?.id)}>
+                                <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M25.4403 1.68294C27.4936 1.95314 29 3.95641 29 6.29532V39L15 31.084L1 39V6.29532C1 3.95641 2.50453 1.95314 4.55973 1.68294C11.4966 0.772355 18.5034 0.772355 25.4403 1.68294Z" stroke="#795AA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span class="feed-item__btn-num">{props.data?.favorites_count}</span>
+                            </button>
+                        )
+                    }
+
                 </div>
             </div>
 
@@ -213,7 +256,7 @@ function Post(props) {
                     </div>)
                     : ('')}
             </div>
-        </div>
+        </div >
     )
 }
 

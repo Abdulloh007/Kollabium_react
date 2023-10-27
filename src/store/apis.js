@@ -36,4 +36,5 @@ export default {
     transactions: apiPath + 'transactions',
     withdraw: apiPath + 'withdraw',
     uploadFile: apiPath + 'upload-file',
+    settings: apiPath + 'settings/profile',
 }

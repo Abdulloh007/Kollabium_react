@@ -33,6 +33,7 @@ import { useEffect, useState } from 'react';
 import Feed from './views/Profile/Feed';
 import Post from './views/Posts/Post';
 import User from './views/User';
+import Favorite from './views/Profile/Favorite';
 
 function App() {
 
@@ -70,6 +71,7 @@ function App() {
           <Route path="/partners" element={<Protected element={<Partners />}></Protected>}></Route>
           <Route path="/payment-type" element={<Protected element={<PaymentType />}></Protected>}></Route>
           <Route path="/profile" element={<Protected element={<Settings />}></Protected>}></Route>
+          <Route path="/favorite" element={<Protected element={<Favorite />}></Protected>}></Route>
           <Route path="/statistics" element={<Protected element={<Statistics />}></Protected>}></Route>
           <Route path="/subscriptions" element={<Protected element={<Subscriptions />}></Protected>}></Route>
           <Route path="/team" element={<Protected element={<Team />}></Protected>}></Route>
