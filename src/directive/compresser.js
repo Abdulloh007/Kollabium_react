@@ -25,8 +25,11 @@ export function linkFun(ev) {
         canvas.toBlob(
             (blob) => {
                 // Handle the compressed image. es. upload or save in local state
-                displayInfo('Original file', file);
-                displayInfo('Compressed file', blob);
+                // displayInfo('Original file', file);
+                // displayInfo('Compressed file', blob);
+                
+                
+                
             },
             MIME_TYPE,
             QUALITY

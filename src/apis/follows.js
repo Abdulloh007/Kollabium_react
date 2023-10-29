@@ -7,6 +7,12 @@ export function getFollows() {
     })
 }
 
+export function getMyFollows(query) {
+    return axios.get(apis.myFollows + query, {
+        headers: apiHeader
+    })
+}
+
 export function getAFollow(id) {
     return axios.get(apis.follows + id, {
         headers: apiHeader
@@ -26,7 +32,7 @@ export function updateFollow(body) {
 }
 
 export function deleteAFollow(id) {
-    return axios.delete(apis.follows + id, {
+    return axios.delete(apis.follows + '/' + id, {
         headers: apiHeader
     })
 }

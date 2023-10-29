@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { getUser } from "../apis/users"
+import { createFollow } from "../apis/follows"
 
 function User() {
     const { state } = useLocation()
@@ -9,6 +10,16 @@ function User() {
     useEffect(() => {
         getUser(state?.id).then(res => setUserInfo(res.data.data))
     }, [])
+
+    function subscribeUser(e) {
+        createFollow({
+            target: 'user',
+            target_id: state?.id
+        }).then(res => {
+            e.target.innerText = 'Отписаться'
+            e.target.disabled = true
+        })
+    }
 
     return (
         <>
@@ -268,6 +279,9 @@ function User() {
                                                 <div class="text16 lh150">
                                                     {userInfo.user_information?.about_me?.value}
                                                 </div>
+                                                <button onClick={e => subscribeUser(e)} class="badge anim-btn _small _btn" style={{marginTop: 20}}>
+                                                    <span class="text14">Подписаться</span>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

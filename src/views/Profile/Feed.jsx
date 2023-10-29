@@ -44,12 +44,12 @@ function Feed() {
 
     function previewAvatar(e) {
         if (e.target.files.length > 0) {
-            linkFun(e)
+            // linkFun(e)
             setModalStep(2)
-            // uploadFile(e.target.files[0]).then(res => {
-            //     setIsLoaded(true)
-            //     setPreviewedAvatar('https://dev.backend.kollabium.com' + res.data.data.asset)
-            // })
+            uploadFile(e.target.files[0]).then(res => {
+                setIsLoaded(true)
+                setPreviewedAvatar('https://dev.backend.kollabium.com' + res.data.data.asset)
+            })
         }
 
     }

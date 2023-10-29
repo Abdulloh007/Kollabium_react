@@ -1,4 +1,19 @@
+import { useEffect, useState } from "react";
+import { deleteAFollow, getMyFollows } from "../../apis/follows";
+
 function Followers() {
+
+    const [myFollows, setMyFollows] = useState([])
+
+    useEffect(() => {
+        getMyFollows('?target=user').then(res => setMyFollows(res.data.data))
+    }, [])
+
+    function unsubscribeUser(e, id) {
+        e.target.style.opacity = 0.5
+        deleteAFollow(id).then(res => getMyFollows('?target=user').then(res => setMyFollows(res.data.data)))
+    }
+
     return (
         <>
             <main class="content">
@@ -67,7 +82,35 @@ function Followers() {
                                     </button>
                                 </div>
                                 <div class="team__items">
-                                    <div class="member-card">
+                                    {myFollows.map((item, idx) => (
+                                        <div class="member-card" key={idx}>
+                                            <div class="member-card__user">
+                                                <div class="avatar">
+                                                    <img src="img/avatar2.webp" alt=""/>
+                                                </div>
+                                                <div class="member-card__user-info">
+                                                    <div class="text16 text14-mob font2">
+                                                        {item?.target_title}
+                                                    </div>
+                                                    <div class="text16 text10-mob">
+                                                        @iren_lasky
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="member-card__desc">
+                                                <div class="text16 text10-mob">
+                                                    Подписался {Math.round((new Date() - new Date(item?.created_at)) / (1000 * 60 * 60 * 24))} дней назад
+                                                </div>
+                                            </div>
+                                            <button onClick={(e) => unsubscribeUser(e, item?.id)} class="member-card__btn m-btn m-btn-purple">
+                                                <span>Отписаться</span>
+                                            </button>
+                                        </div>
+                                    ))}
+
+                                    {myFollows.length == 0 ? (<p>Нет подписок!</p>) : '' }
+
+                                    {/* <div class="member-card">
                                         <div class="member-card__user">
                                             <div class="avatar">
                                                 <img src="img/avatar2.webp" alt=""/>
@@ -185,31 +228,7 @@ function Followers() {
                                         <button class="member-card__btn m-btn m-btn-purple">
                                             <span>Отписаться</span>
                                         </button>
-                                    </div>
-
-                                    <div class="member-card">
-                                        <div class="member-card__user">
-                                            <div class="avatar">
-                                                <img src="img/avatar2.webp" alt=""/>
-                                            </div>
-                                            <div class="member-card__user-info">
-                                                <div class="text16 text14-mob font2">
-                                                    Iren Lasky
-                                                </div>
-                                                <div class="text16 text10-mob">
-                                                    @iren_lasky
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="member-card__desc">
-                                            <div class="text16 text10-mob">
-                                                Подписался 365 дней назад
-                                            </div>
-                                        </div>
-                                        <button class="member-card__btn m-btn m-btn-purple">
-                                            <span>Отписаться</span>
-                                        </button>
-                                    </div>
+                                    </div> */}
 
                                 </div>
                             </div>
