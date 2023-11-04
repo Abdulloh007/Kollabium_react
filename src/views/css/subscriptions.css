@@ -1,3 +1,171 @@
-.subscribe__img {
-    top: 50%;
+.t__wrapper {
+    max-width: 1920px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4.5em 0 10em;
+    justify-content: space-between;
+}
+
+.t_col-6 {
+    width: calc(50% - 20px);
+}
+
+.t_tarif {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.t_tarif_content {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.t_tc_part_secondary {
+    width: 270px;
+    height: 100%;
+}
+
+.t_tarif:nth-child(2n) .t_tc_part_secondary {
+    text-align: right;
+}
+
+.t_tc_part_primary {
+    width: calc(100% - 270px);
+    margin-top: 18px;
+    padding-right: 8%;
+}
+
+.t_tarif:nth-child(2n) .t_tc_part_primary {
+    padding-right: 0;
+    padding-left: 8%;
+    text-align: right;
+}
+
+.t_offer_btn {
+    font-size: 24px;
+    padding: 24px 32px;
+    border-radius: 100px;
+    background-color: #eee;
+}
+
+.t_tarif:nth-child(3) .t_offer_btn.t_violet_btn:not(.small),
+.t_tarif:nth-child(4) .t_offer_btn.t_purple_btn:not(.small) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.t_tarif:nth-child(4) .t_offer_btn.t_purple_btn:not(.small) {
+    right: 0;
+    left: auto;
+}
+
+.t_offer_btn.small {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+}
+
+.t_offer_btn.t_orange_btn {
+    background-image: linear-gradient(90deg, #FFC208 -2.56%, #FF8E75 102.56%);
+    color: #fff;
+}
+
+.t_offer_btn.t_black_btn {
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    border-radius: 24px;
+    border: 1px solid #FFF;
+    background: #2F2F2F;
+    backdrop-filter: blur(10px);
+    color: #F6F6F6;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.t_offer_btn.t_black_btn svg {
+    margin-right: 8px;
+}
+
+.t_offer_btn.t_rose_btn {
+    background-image: linear-gradient(90deg, #AF79E5 -2.56%, #FF8E75 102.56%);
+    color: #fff;
+}
+
+.t_offer_btn.t_violet_btn {
+    background-image: linear-gradient(90deg, #B008FF -2.56%, #FF7575 102.56%);
+    color: #fff;
+}
+
+.t_offer_btn.t_purple_btn {
+    background-image: linear-gradient(90deg, #6E318A -2.56%, #D73281 102.56%);
+    color: #fff;
+}
+
+.t_offer_heading {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.t_offer_list_row {
+    width: calc(100% + 200px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.t_order_list {
+    width: 100%;
+}
+
+.t_offer_list_row > * {
+    width: 48%;
+}
+
+.t_order_list li {
+    text-align: left;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 6px 0;
+}
+
+.t_order_list li::before {
+    content: "";
+    POSITION: absolute;
+    width: 100%;
+    height: 1px;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, #5D3EFE -2.56%, #FFC208 102.56%);
+}
+
+.t_order_list li span:nth-child(2) {
+    font-weight: 600;
+}
+
+.t_order_poster {
+    margin-top: 30px;
+}
+
+.t_offer_btn.t_black_btn:last-child {
+    position: absolute;
+    bottom: 0;
+}
+
+.t_tarif:nth-child(2n) .t_offer_btn.t_black_btn {
+    right: 40%;
+}
+
+.t_tarif:nth-child(2) .t_offer_btn.t_black_btn {
+    margin-left: 70%;
 }

@@ -1,0 +1,5 @@
+@media screen and (max-width: 1600px) and (min-width: 576px) {
+    .indicators {
+        margin-top: 1.5em;
+    }
+}

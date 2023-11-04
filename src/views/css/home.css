@@ -60,6 +60,9 @@ a.wallet:hover {
 /* Feed  */
 .user-main__img {
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .user-main img {
@@ -71,6 +74,14 @@ a.wallet:hover {
 
 .user-main {
     height: 55em;
+}
+
+.user-main__img.cy {
+    z-index: auto;
+}
+
+.text18 a.badge {
+    width: max-content;
 }
 
 @media screen and (max-width: 1600px) and (min-width: 576px) {

@@ -34,6 +34,12 @@ import Feed from './views/Profile/Feed';
 import Post from './views/Posts/Post';
 import User from './views/User';
 import Favorite from './views/Profile/Favorite';
+import PartnersList from './views/Profile/PartnersList';
+
+import FreelanceDialog from './components/popups/Freelance';
+import NewsDialog from './components/popups/News';
+import PurchaseDialog from './components/popups/Purchase';
+import RaitingDialog from './components/popups/Raiting';
 
 function App() {
 
@@ -69,6 +75,7 @@ function App() {
           <Route path="/awards" element={<Protected element={<Awards />}></Protected>}></Route>
           <Route path="/followers" element={<Protected element={<Followers />}></Protected>}></Route>
           <Route path="/partners" element={<Protected element={<Partners />}></Protected>}></Route>
+          <Route path="/partners-list" element={<Protected element={<PartnersList />}></Protected>}></Route>
           <Route path="/payment-type" element={<Protected element={<PaymentType />}></Protected>}></Route>
           <Route path="/profile" element={<Protected element={<Settings />}></Protected>}></Route>
           <Route path="/favorite" element={<Protected element={<Favorite />}></Protected>}></Route>
@@ -85,6 +92,10 @@ function App() {
         </Routes>
         <Footer />
         <Loader/>
+        <FreelanceDialog/>
+        <NewsDialog/>
+        <PurchaseDialog/>
+        <RaitingDialog/>
       </Router>
     </>
   );

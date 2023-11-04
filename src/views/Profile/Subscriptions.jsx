@@ -5,807 +5,316 @@ function Subscriptions() {
         <>
             <main class="content">
 
-                <div class="subscribe">
-                    <div class="subscribe__img">
-                            {/* <img src="img/tariffs.svg" alt=""/> */}
-                            <div class="tariff _alpha">
-                                <svg width="249" height="250" viewBox="0 0 249 250" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <mask id="mask0_501_14461" style={{maskType: 'luminance'}} maskUnits="userSpaceOnUse" x="0" y="0" width="249" height="250">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.367188 130.316C64.0311 124.867 114.005 71.4394 114.005 6.3339C114.005 4.45289 113.963 2.58174 113.881 0.721213C117.421 0.41846 121.004 0.263672 124.622 0.263672C193.315 0.263672 249.001 55.977 249.001 124.703C249.001 193.43 193.315 249.143 124.622 249.143C57.8091 249.143 3.30072 196.438 0.367188 130.316Z" fill="#F6F6F6" />
-                                    </mask>
-                                    <g mask="url(#mask0_501_14461)">
-                                        <path d="M0.365468 130.316L-0.669013 118.219L-12.2734 119.213L-11.757 130.854L0.365468 130.316ZM113.879 0.721046L112.844 -11.3754L101.24 -10.3822L101.757 1.25978L113.879 0.721046ZM101.869 6.33373C101.869 65.0814 56.7714 113.304 -0.669013 118.219L1.39995 142.412C71.2874 136.431 126.138 77.7978 126.138 6.33373H101.869ZM101.757 1.25978C101.831 2.94048 101.869 4.63255 101.869 6.33373H126.138C126.138 4.27289 126.092 2.22267 126.001 0.183072L101.757 1.25978ZM114.913 12.8175C118.11 12.5436 121.348 12.404 124.62 12.404V-11.877C120.656 -11.877 116.728 -11.7077 112.844 -11.3754L114.913 12.8175ZM124.62 12.404C186.611 12.404 236.865 62.6822 236.865 124.703H261.134C261.134 49.2723 200.015 -11.877 124.62 -11.877V12.404ZM236.865 124.703C236.865 186.724 186.611 237.002 124.62 237.002V261.283C200.015 261.283 261.134 200.134 261.134 124.703H236.865ZM124.62 237.002C64.329 237.002 15.1347 189.438 12.4879 129.777L-11.757 130.854C-8.53675 203.436 51.2859 261.283 124.62 261.283V237.002Z" fill="#F6F6F6" />
-                                    </g>
-                                </svg>
-                                <div class="tariff__inner">
-                                    <div class="tariff__title">Kollabium</div>
-                                    <div class="tariff__num">Alpha</div>
-                                </div>
+                <div className="t__wrapper">
+                    <div className="t_col-6 t_tarif">
+                        <div className="t_tarif_content">
+                            <div className="t_tc_part_secondary">
+                                <button className="t_offer_btn t_orange_btn">Kollabium X</button>
+                                <img src="/img/offer_poster_1.png" alt="" className="t_order_poster" />
                             </div>
-                            <div class="tariff _z">
-                                <div class="tariff__inner">
-                                    <div class="tariff__title">Kollabium</div>
-                                    <div class="tariff__num">X</div>
-                                </div>
+                            <div className="t_tc_part_primary">
+                                <button className="t_offer_btn t_black_btn">
+                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.61121 14.9686C9.61121 16.2586 10.6012 17.2986 11.8312 17.2986H14.3412C15.4112 17.2986 16.2812 16.3886 16.2812 15.2686C16.2812 14.0486 15.7512 13.6186 14.9612 13.3386L10.9312 11.9386C10.1412 11.6586 9.61121 11.2286 9.61121 10.0086C9.61121 8.88858 10.4812 7.97858 11.5512 7.97858H14.0612C15.2912 7.97858 16.2812 9.01858 16.2812 10.3086" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.9393 6.63873V18.6387" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.9393 22.6387C18.4622 22.6387 22.9393 18.1616 22.9393 12.6387C22.9393 7.11589 18.4622 2.63873 12.9393 2.63873C7.41648 2.63873 2.93933 7.11589 2.93933 12.6387C2.93933 18.1616 7.41648 22.6387 12.9393 22.6387Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <span>бесплатно / навсегда</span>
+                                </button>
+                                <button className="t_offer_btn t_orange_btn small">Базовый доступ</button>
+                                <h4 className='t_offer_heading'>Партнерская программа</h4>
+                                <ul className="t_order_list">
+                                    <li>
+                                        <span>Действие одного Промо Кода</span>
+                                        <span>1 рег / 24 часа</span>
+                                    </li>
+                                    <li>
+                                        <span>Партнерская программа (доступные уровни)</span>
+                                        <span>1</span>
+                                    </li>
+                                    <li>
+                                        <span>Вознаграждения (max в месяц)</span>
+                                        <span>100 $</span>
+                                    </li>
+                                </ul>
+                                <h4 className='t_offer_heading'>Функции</h4>
+                                <ul className="t_order_list">
+                                    <li>
+                                        <span>Основной доступ к соц сети*</span>
+                                        {/* <span>1 рег / 24 часа</span> */}
+                                    </li>
+                                    <li>
+                                        <span>«Функция поддержки»</span>
+                                        {/* <span>1</span> */}
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="tariff _y">
-                                <div class="tariff__inner">
-                                    <div class="tariff__title">Kollabium</div>
-                                    <div class="tariff__num">Y</div>
-                                </div>
-                            </div>
-                            <div class="tariff _x">
-                                <div class="tariff__inner">
-                                    <div class="tariff__title">Kollabium</div>
-                                    <div class="tariff__num">Z</div>
-                                </div>
-                            </div>
+                        </div>
+                        <div className="t_tarif_layout">
+                            <svg width="814" height="508" viewBox="0 0 814 508" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M813.139 485.401C814.342 496.91 805.316 506.928 793.745 506.928H38.6086C28.2394 506.928 19.6837 498.813 19.1359 488.458L1.21478 149.75C-0.245911 122.142 21.7458 98.9561 49.392 98.9561L183.28 98.9561C214.33 98.9561 239.5 73.7857 239.5 42.7364C239.5 19.4099 258.41 0.499939 281.736 0.499939L672.832 0.5C723.782 0.5 766.499 38.987 771.793 89.6607L813.139 485.401Z" fill="url(#paint0_linear_64_1253)" fill-opacity="0.6" stroke="url(#paint1_linear_64_1253)" />
+                                <defs>
+                                    <linearGradient id="paint0_linear_64_1253" x1="406.972" y1="507.428" x2="406.972" y2="63.8341" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="white" stop-opacity="0.6" />
+                                        <stop offset="1" stop-color="white" />
+                                    </linearGradient>
+                                    <linearGradient id="paint1_linear_64_1253" x1="1530.67" y1="507.428" x2="1500.73" y2="-21.3293" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="white" />
+                                        <stop offset="0.505208" stop-color="white" stop-opacity="0" />
+                                        <stop offset="1" stop-color="white" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+
+                        </div>
                     </div>
-                    <div class="subscribe__inner">
-                        <div data-tariff="_x" class="subscribe-group">
-                            <div class="subscribe-group__top">
-                                <span class="text32 font2">
-                                    Kollabium Z
-                                </span>
-                                <span class="text32 font2 gradient-pink-text">
-                                    30$
-                                </span>
-                            </div>
-                            <div class="subscribe-group__desc text16 bold-text purple-text2">
-                                Включает все функции тарифа KollabiuM Y, плюс:
-                            </div>
-                            <div class="subscribe-group__grid">
-                                <div class="functions">
-                                    <div class="text16 font2">
-                                        Функции
-                                    </div>
-                                    <div class="functions__items">
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Партнерская программа: 3 уровня:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Увеличьте свои возможности и долю вознаграждений, теперь вам доступны три уровня для вознаграждений от вашей команды активных пользователей.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Вознаграждения от платформы: максимум 10,000$ в месяц:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Месячный потенциал ваших вознаграждений увеличивается до 10,000$ в токенах KollabiuM от различных действий на платформе, таких как: партнерская программа, функция поддержки, влияние на ваш рейтинг, отправка вам подарков и другие. </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Действие одного Промо Кода: 10 регистраций в течение 240 часов: </span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Ваш Промо Код теперь может быть использован для десяти регистраций в течение 240 часов после активации. После этого вы сможете сгенерировать новый промо код.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Отправка подарков, модерация контента, влияние на рейтинг: 30 раз: </span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Еще больше возможностей для влияния на платформу, с 30 различными вариантами использования.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Настраиваемая реклама:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Полный контроль над рекламным контентом, который вы видите. Получайте от рекламы только то, что вам на самом деле необходимо.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Смена дизайна социальной сети:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p> В KollabiuM основа - это человек. И мы уважаем вкусы всех людей. По-этому, вам доступна возможность смены дизайна платформы из предложенных.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Изменение цветовой схемы:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Возможность настройки цветовой палитры выбранного дизайна для удовлетворения вашего вкуса.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Голосование на платформе: 10 раз: </span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Участвуйте в формировании будущего KollabiuM, голосуя до 10 раз на официальной странице платформы.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Размещение рекламы: 2 раза:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p> Разместите свою рекламу на платформе до двух раз.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Премиум стикеры и эмодзи:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Обогащайте свои сообщения с помощью эксклюзивных стикеров и эмодзи. Пусть общение станет красивым и интересным.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="program">
-                                    <div class="text16 font2">
-                                        Партнерская программа
-                                    </div>
-                                    <div class="program__items">
-                                        <div class="program-item">
-                                            <span class="program-item__title">
-                                                Действие одного Промо Кода
-                                            </span>
-                                            <span class="program-item__desc">
-                                                1 рег <br/> 24 часа
-                                            </span>
-                                        </div>
-                                        <div class="program-item">
-                                            <span class="program-item__title">
-                                                Партнерская программа
-                                                (доступные уровни)
-                                            </span>
-                                            <span class="program-item__desc">
-                                                1
-                                            </span>
-                                        </div>
-                                        <div class="program-item">
-                                            <span class="program-item__title">
-                                                Вознаграждения от партнерской программы (max в месяц)
-                                            </span>
-                                            <span class="program-item__desc">
-                                                100 $
-                                            </span>
-                                        </div>
-                                    </div>
+                    <div className="t_col-6 t_tarif">
+                        <div className="t_tarif_content">
+                            <div className="t_tc_part_primary">
+                                <button className="t_offer_btn t_black_btn">
+                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.61121 14.9686C9.61121 16.2586 10.6012 17.2986 11.8312 17.2986H14.3412C15.4112 17.2986 16.2812 16.3886 16.2812 15.2686C16.2812 14.0486 15.7512 13.6186 14.9612 13.3386L10.9312 11.9386C10.1412 11.6586 9.61121 11.2286 9.61121 10.0086C9.61121 8.88858 10.4812 7.97858 11.5512 7.97858H14.0612C15.2912 7.97858 16.2812 9.01858 16.2812 10.3086" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.9393 6.63873V18.6387" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.9393 22.6387C18.4622 22.6387 22.9393 18.1616 22.9393 12.6387C22.9393 7.11589 18.4622 2.63873 12.9393 2.63873C7.41648 2.63873 2.93933 7.11589 2.93933 12.6387C2.93933 18.1616 7.41648 22.6387 12.9393 22.6387Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <span>15$/ месяц</span>
+                                </button>
+                                <button className="t_offer_btn t_rose_btn small">Включает все функции KollabiuM X плюс</button>
+                                <h4 className='t_offer_heading'>Партнерская программа</h4>
+                                <ul className="t_order_list">
+                                    <li>
+                                        <span>Действие одного Промо Кода</span>
+                                        <span>3 рег / 72 часа</span>
+                                    </li>
+                                    <li>
+                                        <span>Партнерская программа (доступные уровни)</span>
+                                        <span>2</span>
+                                    </li>
+                                    <li>
+                                        <span>Вознаграждения (max в месяц)</span>
+                                        <span>1000 $</span>
+                                    </li>
+                                </ul>
+                                <h4 className='t_offer_heading'>Функции</h4>
+                                <div className="t_offer_list_row">
+                                    <ul className="t_order_list">
+                                        <li>
+                                            <span>Возможность делегировать личные токены </span>
+                                            {/* <span>1 рег / 24 часа</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Смена дизайна соц сети </span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Премиум стикеры и эмодзи</span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Аналитика страницы</span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Взаимодействия с людьми</span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                    </ul>
+                                    <ul className="t_order_list">
+                                        <li>
+                                            <span>Делегирование токена от партнерки</span>
+                                            {/* <span>1 рег / 24 часа</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Голосование на платформе</span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Настраиваемая реклама</span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Размещение рекламы</span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="subscribe-group__desc text16 _pr">
-                                Этот тариф дает дополнительные преимущества и функции для тех, кто хочет больше контролировать свой опыт на платформе и получать больше вознаграждений.
+                            <div className="t_tc_part_secondary">
+                                <button className="t_offer_btn t_rose_btn">Kollabium Y</button>
+                                <img src="/img/offer_poster_2.png" alt="" className="t_order_poster" />
                             </div>
                         </div>
-                        <div data-tariff="_alpha" class="subscribe-group">
-                            <div class="subscribe-group__top">
-                                <span class="text32 font2">
-                                    Kollabium Alpha
-                                </span>
-                                <span class="text32 font2 gradient-pink-text">
-                                    60$
-                                </span>
+                        <div className="t_tarif_layout">
+                            <svg width="814" height="508" viewBox="0 0 814 508" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.860617 485.401C-0.341762 496.91 8.68394 506.928 20.2551 506.928H775.391C785.761 506.928 794.316 498.813 794.864 488.458L812.785 149.75C814.246 122.142 792.254 98.9561 764.608 98.9561L630.72 98.9561C599.67 98.9561 574.5 73.7857 574.5 42.7364C574.5 19.4099 555.59 0.499939 532.264 0.499939L141.168 0.5C90.2184 0.5 47.5009 38.987 42.2067 89.6607L0.860617 485.401Z" fill="url(#paint0_linear_64_1254)" fill-opacity="0.6" stroke="url(#paint1_linear_64_1254)" />
+                                <defs>
+                                    <linearGradient id="paint0_linear_64_1254" x1="407.028" y1="507.428" x2="407.028" y2="63.8341" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="white" stop-opacity="0.6" />
+                                        <stop offset="1" stop-color="white" />
+                                    </linearGradient>
+                                    <linearGradient id="paint1_linear_64_1254" x1="-716.671" y1="507.428" x2="-686.725" y2="-21.3293" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="white" />
+                                        <stop offset="0.505208" stop-color="white" stop-opacity="0" />
+                                        <stop offset="1" stop-color="white" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
+                    <div className="t_col-6 t_tarif">
+                        <div className="t_tarif_content">
+                            <div className="t_tc_part_secondary">
+                                <img src="/img/offer_poster_3.png" alt="" className="t_order_poster" />
+                                <button className="t_offer_btn t_violet_btn">Kollabium Z</button>
                             </div>
-                            <div class="subscribe-group__desc text16 bold-text purple-text2">
-                                Включает все функции тарифа KollabiuM Z, плюс:
-                            </div>
-                            <div class="subscribe-group__grid">
-                                <div class="functions">
-                                    <div class="text16 font2">
-                                        Функции
-                                    </div>
-                                    <div class="functions__items">
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Партнерская программа: 4 и 5 уровни: </span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Теперь вы можете прикоснуться к максимальным возможностям благодарностей за то, что активно делитесь с друзьями информацией о KollabiuM .</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Вознаграждения от платформы: максимум 100,000$ в месяц: </span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Значительно увеличьте свои возможности вознаграждений до 100,000$ в токенах KollabiuM в месяц.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Действие одного Промо Кода: безлимит: </span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Ваш Промо Код теперь действителен для неограниченного количества регистраций, расширяя ваши возможности и делая процесс еще более комфортным.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Отправка подарков, модерация контента, влияние на рейтинг: 60 раз: </span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Удвоенные возможности для взаимодействия с платформой в соответствии с вашими интересами.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Голосование на платформе: 25 раз:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Участвуйте активнее в принятии решений на платформе с 25 возможностями голосования.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Размещение рекламы: 5 раз:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Рекламируйте свои продукты или услуги на платформе до пяти раз.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Функция поддержки: </span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p> Возможность добровольно оказывать помощь в токене KollabiuM тем, кому посчитаете нужным. Данная функция повышает ваш рейтинг.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="program">
-                                    <div class="text16 font2">
-                                        Партнерская программа
-                                    </div>
-                                    <div class="program__items">
-                                        <div class="program-item">
-                                            <span class="program-item__title">
-                                                Действие одного Промо Кода
-                                            </span>
-                                            <span class="program-item__desc">
-                                                1 рег <br/> 24 часа
-                                            </span>
-                                        </div>
-                                        <div class="program-item">
-                                            <span class="program-item__title">
-                                                Партнерская программа
-                                                (доступные уровни)
-                                            </span>
-                                            <span class="program-item__desc">
-                                                1
-                                            </span>
-                                        </div>
-                                        <div class="program-item">
-                                            <span class="program-item__title">
-                                                Вознаграждения от партнерской программы (max в месяц)
-                                            </span>
-                                            <span class="program-item__desc">
-                                                100 $
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="subscribe-group__desc text16 _pl">
-                                Этот набор премиум функций является верхним в иерархии и предоставляет самые эксклюзивные возможности и преимущества на платформе. Он идеален для активных и амбициозных пользователей, стремящихся максимизировать свои вознаграждения и влияние в сообществе KollabiuM.
+                            <div className="t_tc_part_primary">
+                                <button className="t_offer_btn t_violet_btn small">Включает все функции KollabiuM Y плюс</button>
+                                <h4 className='t_offer_heading'>Партнерская программа</h4>
+                                <ul className="t_order_list">
+                                    <li>
+                                        <span>Действие одного Промо Кода</span>
+                                        <span>1 рег / 24 часа</span>
+                                    </li>
+                                    <li>
+                                        <span>Партнерская программа (доступные уровни)</span>
+                                        <span>1</span>
+                                    </li>
+                                    <li>
+                                        <span>Вознаграждения (max в месяц)</span>
+                                        <span>100 $</span>
+                                    </li>
+                                </ul>
+                                <h4 className='t_offer_heading'>Функции</h4>
+                                <ul className="t_order_list">
+                                    <li>
+                                        <span>Основной доступ к соц сети*</span>
+                                        {/* <span>1 рег / 24 часа</span> */}
+                                    </li>
+                                    <li>
+                                        <span>«Функция поддержки»</span>
+                                        {/* <span>1</span> */}
+                                    </li>
+                                </ul>
+                                <button className="t_offer_btn t_black_btn">
+                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.61121 14.9686C9.61121 16.2586 10.6012 17.2986 11.8312 17.2986H14.3412C15.4112 17.2986 16.2812 16.3886 16.2812 15.2686C16.2812 14.0486 15.7512 13.6186 14.9612 13.3386L10.9312 11.9386C10.1412 11.6586 9.61121 11.2286 9.61121 10.0086C9.61121 8.88858 10.4812 7.97858 11.5512 7.97858H14.0612C15.2912 7.97858 16.2812 9.01858 16.2812 10.3086" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.9393 6.63873V18.6387" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.9393 22.6387C18.4622 22.6387 22.9393 18.1616 22.9393 12.6387C22.9393 7.11589 18.4622 2.63873 12.9393 2.63873C7.41648 2.63873 2.93933 7.11589 2.93933 12.6387C2.93933 18.1616 7.41648 22.6387 12.9393 22.6387Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <span>бесплатно / навсегда</span>
+                                </button>
                             </div>
                         </div>
-                        <div data-tariff="_y" class="subscribe-group">
-                            <div class="subscribe-group__top">
-                                <span class="text32 font2">
-                                    Kollabium Y
-                                </span>
-                                <span class="text32 font2 gradient-pink-text">
-                                    15$
-                                </span>
-                            </div>
-                            <div class="subscribe-group__desc text16 bold-text purple-text2">
-                                Включает все функции тарифа KollabiuM X, плюс:
-                            </div>
-                            <div class="subscribe-group__grid">
-                                <div class="functions">
-                                    <div class="text16 font2">
-                                        Функции
-                                    </div>
-                                    <div class="functions__items">
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Партнерская программа: 2 уровня:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Расширьте свои возможности! Делитесь информацией о KollabiuM с друзьями и знакомыми и получайте вознаграждения от двух уровней вашей команды активных пользователей.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Вознаграждения от платформы: эквивалентно максимум 1,000$ в месяц:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Теперь вы можете получить токен KollabiuM в эквиваленте 1000$ в месяц от различных процессов внутри платформы, таких как: партнерская программа, функция поддержки, влияние на ваш рейтинг, отправка вам подарков и другие. </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Действие одного Промо Кода: 3 регистрации в течение 72 часов:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Ваш Промо Код теперь может быть использован для трех регистраций новых пользователей в течение 72 часов после генерации кода. После этого вы можете сгенерировать новый промо код </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Отправка подарков, модерация контента, влияние на рейтинг: 15 раз:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>У вас есть 15 возможностей влиять на содержание платформы, выбирая, на что потратить эти возможности, будь то отправка подарков, модерация контента или изменение рейтинга людям и компаниям. Все эти действия повышают ваш рейтинг.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Возможность делегировать личные токены:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Владейте и управляйте своими личными токенами KollabiuM, делегируя их по своему усмотрению.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="program">
-                                    <div class="text16 font2">
-                                        Партнерская программа
-                                    </div>
-                                    <div class="program__items">
-                                        <div class="program-item">
-                                            <span class="program-item__title">
-                                                Действие одного Промо Кода
-                                            </span>
-                                            <span class="program-item__desc">
-                                                1 рег <br/> 24 часа
-                                            </span>
-                                        </div>
-                                        <div class="program-item">
-                                            <span class="program-item__title">
-                                                Партнерская программа
-                                                (доступные уровни)
-                                            </span>
-                                            <span class="program-item__desc">
-                                                1
-                                            </span>
-                                        </div>
-                                        <div class="program-item">
-                                            <span class="program-item__title">
-                                                Вознаграждения от партнерской программы (max в месяц)
-                                            </span>
-                                            <span class="program-item__desc">
-                                                100 $
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="subscribe-group__desc text16">
-                                Это описание сохраняет структуру и подход, который вы использовали для тарифа KollabiuM X, добавляя новые функции и выгоды для пользователей, выбирающих этот набор функций.
-                            </div>
+                        <div className="t_tarif_layout">
+                            <svg width="814" height="508" viewBox="0 0 814 508" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M813.139 22.0263C814.342 10.5178 805.316 0.5 793.745 0.5H38.6086C28.2394 0.5 19.6837 8.615 19.1359 18.9697L1.21478 357.678C-0.245911 385.286 21.7458 408.472 49.392 408.472L182.28 408.472C213.33 408.472 238.5 433.642 238.5 464.691C238.5 488.018 257.41 506.928 280.736 506.928L672.832 506.928C723.782 506.928 766.499 468.441 771.793 417.767L813.139 22.0263Z" fill="url(#paint0_linear_64_1263)" fill-opacity="0.6" stroke="url(#paint1_linear_64_1263)" />
+                                <defs>
+                                    <linearGradient id="paint0_linear_64_1263" x1="406.972" y1="0" x2="406.972" y2="443.594" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="white" stop-opacity="0.6" />
+                                        <stop offset="1" stop-color="white" />
+                                    </linearGradient>
+                                    <linearGradient id="paint1_linear_64_1263" x1="1530.67" y1="-1.94874e-06" x2="1500.73" y2="528.757" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="white" />
+                                        <stop offset="0.505208" stop-color="white" stop-opacity="0" />
+                                        <stop offset="1" stop-color="white" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
                         </div>
-                        <div data-tariff="_z" class="subscribe-group">
-                            <div class="subscribe-group__top">
-                                <span class="text32 font2">
-                                    Kollabium X
-                                </span>
-                                <span class="text32 font2 gradient-pink-text">
-                                    0$
-                                </span>
-                            </div>
-                            <div class="subscribe-group__desc text16 bold-text purple-text2">
-                                Тариф KollabiuM X является бесплатным вариантом доступа к платформе KollabiuM и идеально подходит для тех, кто хочет начать знакомство с функционалом социальной сети.
-                            </div>
-                            <div class="subscribe-group__grid">
-                                <div class="functions">
-                                    <div class="text16 font2">
-                                        Функции
-                                    </div>
-                                    <div class="functions__items">
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Основной доступ к платформе:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Возможность обмена сообщениями, публикации постов, комментирования, ставить лайки контенту других участников и многое другое.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Партнерская программа: 1 уровень:</span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Люди многие годы делятся информацией о новых социальных сетях с друзьями. В KollabiuM мы решили придать больше ценности этому простому действию.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Вознаграждения от платформы: эквивалентно максимум 100$ в месяц: </span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Вы можете получить токен KollabiuM в эквиваленте максимум 100$ в месяц от различных процессов внутри платформы, таких как: партнерская программа, функция поддержки, влияние на ваш рейтинг, отправка вам подарков и другие. </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Действие одного Промо Кода: 1 регистрация в течение 24 часов: </span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p> Ваш Промо Код действителен для одной регистрации пользователя в течение 24 часов после его генерации. Генерировать новый Промо Код вы можете только после использования предыдущего.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="function-item slideToggle-block">
-                                            <div class="function-item__show slideToggle-block__show">
-                                                <div class="function-item__title">
-                                                    <span>Делегирование токена: от партнерской программы: </span>
-                                                </div>
-                                                <button class="function-item__btn">
-                                                    <span class="_view1 text20 font2">+</span>
-                                                    <span class="_view2 text20 font2">-</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="function-item__hidden slideToggle-block__hidden">
-                                                <div class="function-item__wrap slideToggle-block__wrap body-text2">
-                                                    <div class="text12">
-                                                        <p>Создавайте команду активных пользователей платформы и получайте вознаграждения в личное делегирование токен KollabiuM от активации премиум функций пользователями.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                    </div>
+                    <div className="t_col-6 t_tarif">
+                        <div className="t_tarif_content">
+                            <div className="t_tc_part_primary">
+                                <button className="t_offer_btn t_purple_btn small">Включает все функции KollabiuM X плюс</button>
+                                <h4 className='t_offer_heading'>Партнерская программа</h4>
+                                <ul className="t_order_list">
+                                    <li>
+                                        <span>Действие одного Промо Кода</span>
+                                        <span>3 рег / 72 часа</span>
+                                    </li>
+                                    <li>
+                                        <span>Партнерская программа (доступные уровни)</span>
+                                        <span>2</span>
+                                    </li>
+                                    <li>
+                                        <span>Вознаграждения (max в месяц)</span>
+                                        <span>1000 $</span>
+                                    </li>
+                                </ul>
+                                <h4 className='t_offer_heading'>Функции</h4>
+                                <div className="t_offer_list_row">
+                                    <ul className="t_order_list">
+                                        <li>
+                                            <span>Возможность делегировать личные токены </span>
+                                            {/* <span>1 рег / 24 часа</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Смена дизайна соц сети </span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Премиум стикеры и эмодзи</span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Аналитика страницы</span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Взаимодействия с людьми</span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                    </ul>
+                                    <ul className="t_order_list">
+                                        <li>
+                                            <span>Делегирование токена от партнерки</span>
+                                            {/* <span>1 рег / 24 часа</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Голосование на платформе</span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Настраиваемая реклама</span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                        <li>
+                                            <span>Размещение рекламы</span>
+                                            {/* <span>1</span> */}
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="program">
-                                    <div class="text16 font2">
-                                        Партнерская программа
-                                    </div>
-                                    <div class="program__items">
-                                        <div class="program-item">
-                                            <span class="program-item__title">
-                                                Действие одного Промо Кода
-                                            </span>
-                                            <span class="program-item__desc">
-                                                1 рег <br/> 24 часа
-                                            </span>
-                                        </div>
-                                        <div class="program-item">
-                                            <span class="program-item__title">
-                                                Партнерская программа
-                                                (доступные уровни)
-                                            </span>
-                                            <span class="program-item__desc">
-                                                1
-                                            </span>
-                                        </div>
-                                        <div class="program-item">
-                                            <span class="program-item__title">
-                                                Вознаграждения от партнерской программы (max в месяц)
-                                            </span>
-                                            <span class="program-item__desc">
-                                                100 $
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button className="t_offer_btn t_black_btn">
+                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.61121 14.9686C9.61121 16.2586 10.6012 17.2986 11.8312 17.2986H14.3412C15.4112 17.2986 16.2812 16.3886 16.2812 15.2686C16.2812 14.0486 15.7512 13.6186 14.9612 13.3386L10.9312 11.9386C10.1412 11.6586 9.61121 11.2286 9.61121 10.0086C9.61121 8.88858 10.4812 7.97858 11.5512 7.97858H14.0612C15.2912 7.97858 16.2812 9.01858 16.2812 10.3086" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.9393 6.63873V18.6387" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.9393 22.6387C18.4622 22.6387 22.9393 18.1616 22.9393 12.6387C22.9393 7.11589 18.4622 2.63873 12.9393 2.63873C7.41648 2.63873 2.93933 7.11589 2.93933 12.6387C2.93933 18.1616 7.41648 22.6387 12.9393 22.6387Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <span>60$ / месяц</span>
+                                </button>
                             </div>
+                            <div className="t_tc_part_secondary">
+                                <img src="/img/offer_poster_4.png" alt="" className="t_order_poster" />
+                                <button className="t_offer_btn t_purple_btn">Kollabium Alpha</button>
+                            </div>
+                            
+                        </div>
+                        <div className="t_tarif_layout">
+                            <svg width="814" height="508" viewBox="0 0 814 508" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.860617 22.0263C-0.341762 10.5178 8.68394 0.5 20.2551 0.5H775.391C785.761 0.5 794.316 8.615 794.864 18.9697L812.785 357.678C814.246 385.286 792.254 408.472 764.608 408.472L578.722 406.807C547.753 406.529 522.5 431.557 522.5 462.527C522.5 485.887 503.621 504.853 480.262 504.96L141.581 506.513C90.4574 506.747 47.4758 468.2 42.1634 417.353L0.860617 22.0263Z" fill="url(#paint0_linear_64_1252)" fill-opacity="0.6" stroke="url(#paint1_linear_64_1252)" />
+                                <defs>
+                                    <linearGradient id="paint0_linear_64_1252" x1="407.028" y1="0" x2="407.028" y2="443.594" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="white" stop-opacity="0.6" />
+                                        <stop offset="1" stop-color="white" />
+                                    </linearGradient>
+                                    <linearGradient id="paint1_linear_64_1252" x1="-716.671" y1="-1.94874e-06" x2="-686.725" y2="528.757" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="white" />
+                                        <stop offset="0.505208" stop-color="white" stop-opacity="0" />
+                                        <stop offset="1" stop-color="white" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+
                         </div>
                     </div>
                 </div>

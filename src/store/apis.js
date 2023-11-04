@@ -9,6 +9,8 @@ export default {
     register: apiPath + 'auth/user_register_by_email',    
     me: apiPath + 'auth/me',    
     deleteMe: apiPath + 'users/delete/me',
+    getRefCode: apiPath + 'getReferralCode',
+    referrals: apiPath + 'referrals',
     posts: apiPath + 'posts',    
     news: apiPath + 'news',    
     newsCategories: apiPath + 'category_news',    

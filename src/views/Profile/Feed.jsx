@@ -11,6 +11,7 @@ import { setPost } from "../../store/posts";
 import { getPosts } from "../../apis/posts";
 import { setAvatar } from "../../store/sidebar";
 import { linkFun } from "../../directive/compresser";
+import { openRaitingDialog } from "../../store/dialogs";
 
 function Feed() {
     const dispatch = useDispatch()
@@ -150,7 +151,11 @@ function Feed() {
                                         </div>
                                         <div class="user__text">
                                             <div class="text18">
-                                                {me.user_information?.about_me?.value}
+                                                {me.user_information?.about_me?.value
+                                                    ? me.user_information?.about_me?.value
+                                                    : (
+                                                        <Link to="/profile" class="badge anim-btn _small _btn"><span class="text14">Заполнить данные о себе</span></Link>
+                                                    )}
                                             </div>
                                         </div>
                                     </div>
@@ -391,8 +396,15 @@ function Feed() {
 
 
                                 <div class="user-main">
-                                    <div class="user-main__img">
-                                        <img src={me.user_information?.profile_photo?.value ? me.user_information?.profile_photo?.value : me.avatar} alt="" />
+                                    <div className={me.user_information?.profile_photo?.value ? "user-main__img" : "user-main__img cy"}>
+                                        {me.user_information?.profile_photo?.value
+                                            ? (
+                                                <img src={me.user_information?.profile_photo?.value ? me.user_information?.profile_photo?.value : me.avatar} alt="" />
+                                            )
+                                            : (
+                                                <button onClick={() => openModal()} class="badge anim-btn _small _btn"><span class="text14">Загрузить аватарку</span></button>
+                                            )
+                                        }
                                     </div>
                                 </div>
 
@@ -778,7 +790,7 @@ function Feed() {
                                         </div>
                                     </div>
                                 </div>
-                                <button class="info__btn m-btn m-btn-white round-btn">
+                                <button onClick={() => dispatch(openRaitingDialog())} class="info__btn m-btn m-btn-white round-btn">
                                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M7.5 32.5L32.5 7.5M32.5 7.5L13.75 7.5M32.5 7.5L32.5 26.25" stroke="#795AA0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
