@@ -15,6 +15,7 @@ export default {
     news: apiPath + 'news',    
     newsCategories: apiPath + 'category_news',    
     orders: apiPath + 'orders',    
+    makeOrder: apiPath + 'MakeOrder',    
     allcomments: apiPath + 'allcomments',    
     comments: apiPath + 'comments',    
     companies: apiPath + 'companies',    

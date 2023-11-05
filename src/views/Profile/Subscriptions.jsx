@@ -1,6 +1,21 @@
+import { useState } from 'react';
 import '../css/subscriptions.css'
+import { useEffect } from 'react';
+import { getPlans } from '../../apis/plans';
+import { makeOrder } from '../../apis/orders';
 
 function Subscriptions() {
+    const [plans, setPlans] = useState([])
+
+    useEffect(() => {
+        getPlans().then(res => {
+            setPlans(res.data.data)
+        })
+    }, [])
+
+    function makeOrderHandle(id) {
+        makeOrder({ plan_id: id }).then(res => alert(res.data))
+    }
     return (
         <>
             <main class="content">
@@ -9,7 +24,7 @@ function Subscriptions() {
                     <div className="t_col-6 t_tarif">
                         <div className="t_tarif_content">
                             <div className="t_tc_part_secondary">
-                                <button className="t_offer_btn t_orange_btn">Kollabium X</button>
+                                <button className="t_offer_btn t_orange_btn" onClick={() => makeOrderHandle(1)}>Kollabium X</button>
                                 <img src="/img/offer_poster_1.png" alt="" className="t_order_poster" />
                             </div>
                             <div className="t_tc_part_primary">
@@ -51,21 +66,7 @@ function Subscriptions() {
                             </div>
                         </div>
                         <div className="t_tarif_layout">
-                            <svg width="814" height="508" viewBox="0 0 814 508" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M813.139 485.401C814.342 496.91 805.316 506.928 793.745 506.928H38.6086C28.2394 506.928 19.6837 498.813 19.1359 488.458L1.21478 149.75C-0.245911 122.142 21.7458 98.9561 49.392 98.9561L183.28 98.9561C214.33 98.9561 239.5 73.7857 239.5 42.7364C239.5 19.4099 258.41 0.499939 281.736 0.499939L672.832 0.5C723.782 0.5 766.499 38.987 771.793 89.6607L813.139 485.401Z" fill="url(#paint0_linear_64_1253)" fill-opacity="0.6" stroke="url(#paint1_linear_64_1253)" />
-                                <defs>
-                                    <linearGradient id="paint0_linear_64_1253" x1="406.972" y1="507.428" x2="406.972" y2="63.8341" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="white" stop-opacity="0.6" />
-                                        <stop offset="1" stop-color="white" />
-                                    </linearGradient>
-                                    <linearGradient id="paint1_linear_64_1253" x1="1530.67" y1="507.428" x2="1500.73" y2="-21.3293" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="white" />
-                                        <stop offset="0.505208" stop-color="white" stop-opacity="0" />
-                                        <stop offset="1" stop-color="white" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-
+                            <img src="/img/tbg1.png" alt="" />
                         </div>
                     </div>
                     <div className="t_col-6 t_tarif">
@@ -140,25 +141,12 @@ function Subscriptions() {
                                 </div>
                             </div>
                             <div className="t_tc_part_secondary">
-                                <button className="t_offer_btn t_rose_btn">Kollabium Y</button>
+                                <button onClick={() => makeOrderHandle(3)} className="t_offer_btn t_rose_btn">Kollabium Y</button>
                                 <img src="/img/offer_poster_2.png" alt="" className="t_order_poster" />
                             </div>
                         </div>
                         <div className="t_tarif_layout">
-                            <svg width="814" height="508" viewBox="0 0 814 508" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0.860617 485.401C-0.341762 496.91 8.68394 506.928 20.2551 506.928H775.391C785.761 506.928 794.316 498.813 794.864 488.458L812.785 149.75C814.246 122.142 792.254 98.9561 764.608 98.9561L630.72 98.9561C599.67 98.9561 574.5 73.7857 574.5 42.7364C574.5 19.4099 555.59 0.499939 532.264 0.499939L141.168 0.5C90.2184 0.5 47.5009 38.987 42.2067 89.6607L0.860617 485.401Z" fill="url(#paint0_linear_64_1254)" fill-opacity="0.6" stroke="url(#paint1_linear_64_1254)" />
-                                <defs>
-                                    <linearGradient id="paint0_linear_64_1254" x1="407.028" y1="507.428" x2="407.028" y2="63.8341" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="white" stop-opacity="0.6" />
-                                        <stop offset="1" stop-color="white" />
-                                    </linearGradient>
-                                    <linearGradient id="paint1_linear_64_1254" x1="-716.671" y1="507.428" x2="-686.725" y2="-21.3293" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="white" />
-                                        <stop offset="0.505208" stop-color="white" stop-opacity="0" />
-                                        <stop offset="1" stop-color="white" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
+                            <img src="/img/tbg2.png" alt="" />
                         </div>
                     </div>
                     <div className="t_col-6 t_tarif">
@@ -206,20 +194,7 @@ function Subscriptions() {
                             </div>
                         </div>
                         <div className="t_tarif_layout">
-                            <svg width="814" height="508" viewBox="0 0 814 508" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M813.139 22.0263C814.342 10.5178 805.316 0.5 793.745 0.5H38.6086C28.2394 0.5 19.6837 8.615 19.1359 18.9697L1.21478 357.678C-0.245911 385.286 21.7458 408.472 49.392 408.472L182.28 408.472C213.33 408.472 238.5 433.642 238.5 464.691C238.5 488.018 257.41 506.928 280.736 506.928L672.832 506.928C723.782 506.928 766.499 468.441 771.793 417.767L813.139 22.0263Z" fill="url(#paint0_linear_64_1263)" fill-opacity="0.6" stroke="url(#paint1_linear_64_1263)" />
-                                <defs>
-                                    <linearGradient id="paint0_linear_64_1263" x1="406.972" y1="0" x2="406.972" y2="443.594" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="white" stop-opacity="0.6" />
-                                        <stop offset="1" stop-color="white" />
-                                    </linearGradient>
-                                    <linearGradient id="paint1_linear_64_1263" x1="1530.67" y1="-1.94874e-06" x2="1500.73" y2="528.757" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="white" />
-                                        <stop offset="0.505208" stop-color="white" stop-opacity="0" />
-                                        <stop offset="1" stop-color="white" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
+                            <img src="/img/tbg3.png" alt="" />
                         </div>
                     </div>
                     <div className="t_col-6 t_tarif">
@@ -297,24 +272,10 @@ function Subscriptions() {
                                 <img src="/img/offer_poster_4.png" alt="" className="t_order_poster" />
                                 <button className="t_offer_btn t_purple_btn">Kollabium Alpha</button>
                             </div>
-                            
+
                         </div>
                         <div className="t_tarif_layout">
-                            <svg width="814" height="508" viewBox="0 0 814 508" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0.860617 22.0263C-0.341762 10.5178 8.68394 0.5 20.2551 0.5H775.391C785.761 0.5 794.316 8.615 794.864 18.9697L812.785 357.678C814.246 385.286 792.254 408.472 764.608 408.472L578.722 406.807C547.753 406.529 522.5 431.557 522.5 462.527C522.5 485.887 503.621 504.853 480.262 504.96L141.581 506.513C90.4574 506.747 47.4758 468.2 42.1634 417.353L0.860617 22.0263Z" fill="url(#paint0_linear_64_1252)" fill-opacity="0.6" stroke="url(#paint1_linear_64_1252)" />
-                                <defs>
-                                    <linearGradient id="paint0_linear_64_1252" x1="407.028" y1="0" x2="407.028" y2="443.594" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="white" stop-opacity="0.6" />
-                                        <stop offset="1" stop-color="white" />
-                                    </linearGradient>
-                                    <linearGradient id="paint1_linear_64_1252" x1="-716.671" y1="-1.94874e-06" x2="-686.725" y2="528.757" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="white" />
-                                        <stop offset="0.505208" stop-color="white" stop-opacity="0" />
-                                        <stop offset="1" stop-color="white" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-
+                            <img src="/img/tbg4.png" alt="" />
                         </div>
                     </div>
                 </div>

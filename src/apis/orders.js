@@ -19,6 +19,12 @@ export function createOrder(body) {
     })
 }
 
+export function makeOrder(body) {
+    return axios.post(apis.makeOrder, body, {
+        headers: apiHeader
+    })
+}
+
 export function updateOrder(body) {
     return axios.put(apis.orders, body, {
         headers: apiHeader

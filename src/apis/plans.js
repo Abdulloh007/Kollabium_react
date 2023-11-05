@@ -8,7 +8,7 @@ export function getPlans() {
 }
 
 export function getAPlan(id) {
-    return axios.get(apis.plans + id, {
+    return axios.get(apis.plans  + '/' + id, {
         headers: apiHeader
     })
 }
@@ -26,7 +26,7 @@ export function updatePlan(body) {
 }
 
 export function deleteAPlan(id) {
-    return axios.delete(apis.plans + id, {
+    return axios.delete(apis.plans + '/' + id, {
         headers: apiHeader
     })
 }
